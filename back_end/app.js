@@ -77,14 +77,12 @@ app.use(function(err, req, res, next) {
 });
 
 db.query(
-  `
-SELECT *
-FROM product
-LIMIT 5;
-`
+  `SELECT *
+FROM clients
+LIMIT 5;`
 )
   .then(res => {
-    console.log(res);
+    console.log(res.rows);
   })
   .catch(err => console.error("query error", err.stack));
 
