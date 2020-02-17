@@ -46,31 +46,10 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  // res.status(err.status || 500);
-  // res.render("error");
-
-  // app.get("/", (req, res) => {
-  //   console.log(res);
-  //   pool
-  //     .query(
-  //       `
-  //       SELECT * from clients;`
-  //     )
-  //     .then(result => {
-  //       res.jason(result);
-  //     })
-  //     .catch(err => console.error("query error", err.stack));
-  // });
-  // const getBooks = (request, response) => {
-  //   pool.query('SELECT * FROM clients', (error, results) => {
-  //     if (error) {
-  //       throw error
-  //     }
-  //     response.status(200).json(results.rows)
-  //   })
-  // }
-  // app.get(getBooks)
+  res.status(err.status || 500);
+  res.render("error");
 });
+
 app.listen(process.env.PORT || 3002, () => {
   console.log(`Server listening`);
 });
