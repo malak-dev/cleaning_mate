@@ -77,9 +77,10 @@ app.use(function(err, req, res, next) {
 });
 
 db.query(
-  `SELECT *
-FROM clients
-LIMIT 5;`
+  `select a.provider_id , avg(a.rating)::numeric(10,2)
+  from appointments as a
+  group by a.provider_id
+  ;`
 )
   .then(res => {
     console.log(res.rows);
