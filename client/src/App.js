@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
-import Login from "./components/login";
-import Register from "./components/register"
+import Login from "./components/Login";
+import Register from "./components/Register"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import Header from './components/header';
+import Header from './components/Header';
+import Main from './components/Main'
+import Edit from './components/Edit-profile'
+import ProviderAppointments from './components/providers/ProviedAppointments'
+import ClientAppointments from './components/clients/ClientAppointments'
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,9 +19,7 @@ import {
 
 
 function App() {
-  // const [user, setUser] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState('client')
 
   return (
 
@@ -26,17 +28,40 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">Register</Link>
+              <Link to="/">main</Link>
             </li>
-
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/edit-profile">profile</Link>
+            </li>
+            <li>
+              <Link to="/appointments">Appointments</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
-
-          <Route path="/">
+          <Route path="/login">
             <Login />
-            <br />
+          </Route>
+          <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/edit-profile">
+            <Header />
+            <Edit />
+          </Route>
+          <Route path="/appointments">
+            <Header />
+            {userType === 'client' && <ClientAppointments />}
+            {userType === 'provider' && <ProviderAppointments />}
+          </Route>
+          <Route path="/">
+            <Main />
           </Route>
         </Switch>
       </div>

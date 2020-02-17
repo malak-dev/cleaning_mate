@@ -1,13 +1,14 @@
 import React from 'react'
-import "./header.css";
+import "./Header.scss";
 export default function Header(props) {
   return (
-    <header class="navbar navbar-light">
-      <button class="navbar-toggler sidebar-toggler" type="button" data-toggle="sidebar-show">
+    <header className="list-container">
+      <ul>
+        <li className="list-item"><a href="/">Home</a></li>
+        <li className="list-item"><a href="/appointments">Appointments</a></li>
+        <li className="list-item"><a href="/edit_profile">Edit Profile</a></li>
+      </ul>
 
-        <span class="navbar-toggler-icon"></span>
-
-      </button>
     </header>
   )
 
