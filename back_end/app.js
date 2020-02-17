@@ -50,23 +50,19 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-app.listen(process.env.PORT || 3002, () => {
-  console.log(`Server listening`);
-});
-
-//app.get("/test", (req, res) => {
-db.query(
-  `select a.provider_id , avg(a.rating)::numeric(10,2)
+app.get("/test", (req, res) => {
+  db.query(
+    `select a.provider_id , avg(a.rating)::numeric(10,2)
   from appointments as a
   where date <= now() - interval '1 day'
   group by a.provider_id
   ;`
-)
-  .then(resDb => {
-    console.log(resDb.rows);
-    res.json(resDb.rows);
-  })
-  .catch(err => console.error("query error", err.stack));
-//});
+  )
+    .then(resDb => {
+      console.log(resDb.rows);
+      res.json(resDb.rows);
+    })
+    .catch(err => console.error("query error", err.stack));
+});
 
 module.exports = app;
