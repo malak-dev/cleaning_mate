@@ -8,6 +8,8 @@ const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const appointmentsRouter = require("./routes/appointments");
+const clientRouter = require("./routes/clients");
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,8 +33,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+// app.use("/", indexRouter);
+// app.use("/users", usersRouter);
+app.use("/", appointmentsRouter(db));
+app.use("/api/clients", clientRouter(db));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,21 +52,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
-});
-
-app.get("/test", (req, res) => {
-  db.query(
-    `select a.provider_id , avg(a.rating)::numeric(10,2)
-  from appointments as a
-  where date <= now() - interval '1 day'
-  group by a.provider_id
-  ;`
-  )
-    .then(resDb => {
-      console.log(resDb.rows);
-      res.json(resDb.rows);
-    })
-    .catch(err => console.error("query error", err.stack));
 });
 
 module.exports = app;

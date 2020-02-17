@@ -19,6 +19,7 @@
     "morgan": "~1.9.1",
     "pg": "^7.18.1",
     "pg-native": "^3.0.0",
+    "pg-promise": "^10.4.3",
     "twilio": "^3.39.4"
   },
   "devDependencies": {
