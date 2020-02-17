@@ -1,0 +1,10 @@
+.form{
+  width:40%;
+  border : 2px solid black;
+  margin-left: 5%;
+  padding-bottom: 5%;
+
+}
+.display-div{
+display: inline;
+}
