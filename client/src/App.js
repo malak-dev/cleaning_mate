@@ -9,6 +9,7 @@ import Main from './components/Main'
 import Edit from './components/Edit-profile'
 import ProviderAppointments from './components/providers/ProviedAppointments'
 import ClientAppointments from './components/clients/ClientAppointments'
+import Calendar from './components/clients/Calendar'
 import {
   BrowserRouter as Router,
   Switch,
@@ -42,6 +43,9 @@ function App() {
             <li>
               <Link to="/appointments">Appointments</Link>
             </li>
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
@@ -59,6 +63,10 @@ function App() {
             <Header />
             {userType === 'client' && <ClientAppointments />}
             {userType === 'provider' && <ProviderAppointments />}
+          </Route>
+          <Route path="/home">
+            <Header />
+            <Calendar />
           </Route>
           <Route path="/">
             <Main />
