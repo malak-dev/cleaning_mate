@@ -10,7 +10,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const clientsRouter = require("./routes/clients");
 //const appointmentsRouter = require("./routes/appointments");
-//const providersRouter = = require("./routes/providers");
+const providersRouter = require("./routes/providers");
 
 const app = express();
 app.use(bodyParser.json());
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use("/", indexRouter);
 // app.use("/users", usersRouter);
 app.use("/api/clients", clientsRouter(db));
-//app.use("/api/providers", providersRouter(db));
+app.use("/api/providers", providersRouter(db));
 //app.use("/api/appointments", appointmentsRouter(db));
 
 // catch 404 and forward to error handler

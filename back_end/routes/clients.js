@@ -1,9 +1,9 @@
 const router = require("express").Router();
 
-// Get all appointment for selected user
+// Get all appointment for selected client
 module.exports = db => {
   router.get("/:userId/appointments", (req, res) => {
-    let userId = 2; //req.params.userId;
+    let userId = req.params.userId;
     console.log(userId);
     let query = {
       text: `SELECT a.date,a.start_time, b.first_name,  
@@ -23,6 +23,53 @@ module.exports = db => {
       })
       .catch(err => console.error("query error", err.stack));
   });
+
+  //Insert a new client
+  router.post("/", (req, res) => {
+    const {
+      email,
+      password,
+      first_name,
+      last_name,
+      number,
+      address
+    } = req.body;
+
+    let query = {
+      text:
+        "INSERT INTO clients(email, password, first_name, last_name, phone_number, address) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6) RETURNING *;",
+      values: [email, password, first_name, last_name, Number(number), address]
+    };
+    db.query(query).then(dbRes => res.send(201));
+  });
+
+  //Update existing client
+  router.put("/:userId", (req, res) => {
+    const {
+      email,
+      password,
+      first_name,
+      last_name,
+      number,
+      address
+    } = req.body;
+
+    let query = {
+      text: `UPDATE  clients SET email =$1 ,password=$2 ,first_name=$3 ,last_name=$4 ,phone_number=$5, address=$6  WHERE id=$7 ;`,
+      values: [
+        email,
+        password,
+        first_name,
+        last_name,
+        Number(number),
+        address,
+        userId
+      ]
+    };
+    db.query(query).then(dbRes => res.send(201));
+  });
+
+  //Select a specific client (login)
 
   return router;
 };
