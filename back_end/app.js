@@ -8,8 +8,9 @@ const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const appointmentsRouter = require("./routes/appointments");
-const clientRouter = require("./routes/clients");
+const clientsRouter = require("./routes/clients");
+//const appointmentsRouter = require("./routes/appointments");
+//const providersRouter = = require("./routes/providers");
 
 const app = express();
 app.use(bodyParser.json());
@@ -35,8 +36,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // app.use("/", indexRouter);
 // app.use("/users", usersRouter);
-app.use("/", appointmentsRouter(db));
-app.use("/api/clients", clientRouter(db));
+app.use("/api/clients", clientsRouter(db));
+//app.use("/api/providers", providersRouter(db));
+//app.use("/api/appointments", appointmentsRouter(db));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
