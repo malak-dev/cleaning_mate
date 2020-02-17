@@ -79,6 +79,7 @@ app.use(function(err, req, res, next) {
 db.query(
   `select a.provider_id , avg(a.rating)::numeric(10,2)
   from appointments as a
+  where date <= now() - interval '1 day'
   group by a.provider_id
   ;`
 )

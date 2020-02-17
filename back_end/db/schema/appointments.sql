@@ -15,8 +15,3 @@ CREATE TABLE appointments
   provider_id INTEGER NOT NULL REFERENCES providers(id) ON DELETE CASCADE
 
 );
-
-
-
-select a.provider_id , avg(a.rating)
-from appointments as a
