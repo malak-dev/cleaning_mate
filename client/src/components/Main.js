@@ -6,7 +6,7 @@ export default function Main(props) {
   return (
     <div class="center-div">
       <h1> Welcom to our App </h1>
-      <Link to="./Register">
+      <Link to="./Login">
         <div class="div">
           start as a client
       </div>

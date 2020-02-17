@@ -6,7 +6,7 @@ export default function Header(props) {
       <ul>
         <li className="list-item"><a href="/">Home</a></li>
         <li className="list-item"><a href="/appointments">Appointments</a></li>
-        <li className="list-item"><a href="/edit_profile">Edit Profile</a></li>
+        <li className="list-item"><a href="/edit_profile"> Profile</a></li>
       </ul>
 
     </header>

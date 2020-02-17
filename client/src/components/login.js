@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./login.scss";
+import { Link } from "react-router-dom"
+
 export default function Login(props) {
 
   // const [email, setEmail] = useState("")
@@ -36,8 +38,15 @@ export default function Login(props) {
           </div>
 
           <button type="submit" class="btn btn-primary">Login</button>
+
         </div>
       </form >
+      <br />
+      <footer>
+        <Link to="./Register">
+          <p> Create an Account</p>
+        </Link>
+      </footer>
     </div>
   )
 }
