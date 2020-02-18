@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS providers CASCADE;
 CREATE TABLE providers
 (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -7,5 +8,5 @@ CREATE TABLE providers
   password VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
-  max_distance VARCHAR(255)
+  max_distance VARCHAR(255) DEFAULT 200
 );
