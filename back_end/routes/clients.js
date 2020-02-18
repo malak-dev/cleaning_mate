@@ -71,7 +71,29 @@ module.exports = db => {
   });
 
   //Select a specific client (login)
-  //...
+  router.get("/", (req, res) => {
+    //const { email, password } = req.body;
+    let email = "afalconer02@gmail.com";
+    let password = "12345";
+
+    const query = {
+      text:
+        "SELECT email, password, id FROM clients WHERE email =$1 and password=$2;",
+      values: [email, password]
+    };
+    db.query(query).then(resDb => {
+      console.log(resDb.rows[0].email);
+      console.log(resDb.rows[0].password);
+
+      if (email !== resDb.rows[0].email) {
+        res.send("Email not in DataBase");
+      } else if (password !== resDb.rows[0].password) {
+        res.send("Wrong Password");
+      } else {
+        res.json(resDb.rows);
+      }
+    });
+  });
 
   return router;
 };
