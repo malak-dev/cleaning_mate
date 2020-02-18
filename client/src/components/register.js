@@ -4,6 +4,31 @@ export default function Register(props) {
 
   // const [email, setEmail] = useState("")
   // const [password, setPassword] = useState("")
+  //   const submitRegister = (first_name, last_name, email, password, phone_number, address) => {
+  //     const data = {
+  //       first_name,
+  //       last_name,
+  //       email,
+  //       password,
+  //       phone_number,
+  //       address
+  //     }
+  //     axios.post('/api/clients', data)
+  //       .then((response) => {
+  //         console.log('submit login fn')
+  //         console.log(response)
+  //       }).catch((err) => {
+  //         console.log(err)
+  //       })
+
+  //   }
+  // }
+  const [first_name, setFirst_name] = useState("")
+  const [last_name, setLast_name] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [address, setAddress] = useState("")
+  const [phone_number, setPhone_number] = useState("")
   return (
     <div >
       <h1 > Create a new Account </h1>
@@ -16,8 +41,8 @@ export default function Register(props) {
               name="first_name"
               type="text"
               placeholder="Enter your first name"
-            // value={first_name}
-            //onChange={(event) => { setPassword(event.target.value) }}
+              value={first_name}
+              onChange={(event) => { setFirst_name(event.target.value) }}
             />
           </div>
           <div class="form-group">
@@ -27,8 +52,8 @@ export default function Register(props) {
               name="last_name"
               type="text"
               placeholder="Enter your last name"
-            // value={password}
-            // onChange={(event) => { setPassword(event.target.value) }}
+              value={last_name}
+              onChange={(event) => { setLast_name(event.target.value) }}
             />
           </div>
           <div class="form-group">
@@ -40,8 +65,8 @@ export default function Register(props) {
               name="email"
               type="email"
               placeholder="Enter your email"
-            //value={email}
-            //onChange={(event) => { setEmail(event.target.value) }}
+              value={email}
+              onChange={(event) => { setEmail(event.target.value) }}
             />
           </div>
           <div class="form-group">
@@ -49,10 +74,10 @@ export default function Register(props) {
             <input
               class="form-control"
               name="password"
-              type="email"
+              type="text"
               placeholder="Enter your password"
-            // value={password}
-            // onChange={(event) => { setPassword(event.target.value) }}
+              value={password}
+              onChange={(event) => { setPassword(event.target.value) }}
             />
           </div>
 
@@ -63,8 +88,8 @@ export default function Register(props) {
               name="phone_number"
               type="text"
               placeholder="Enter your phone number"
-            // value={password}
-            // onChange={(event) => { setPassword(event.target.value) }}
+              value={phone_number}
+              onChange={(event) => { setPhone_number(event.target.value) }}
             />
           </div>
           <div class="form-group">
@@ -74,12 +99,12 @@ export default function Register(props) {
               name="address"
               type="text"
               placeholder="Enter your home address"
-            // value={password}
-            // onChange={(event) => { setPassword(event.target.value) }}
+              value={address}
+              onChange={(event) => { setAddress(event.target.value) }}
             />
           </div>
 
-          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="submit" onClick={() => { props.submitRegister(first_name, last_name, email, password, phone_number, address) }} class="btn btn-primary">Register</button>
         </div>
       </form >
     </div>

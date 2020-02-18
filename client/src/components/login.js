@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import "./login.scss";
 import { Link } from "react-router-dom"
+import axios from 'axios'
 
 export default function Login(props) {
+  console.log(props, "hello")
+  // function submitlogin(email, password) {
+  //   const data = {
+  //     email: email,
+  //     password: password
+  //   }
 
-  // const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
+  //   axios.post('/login', data).then(() => {
+
+  //   })
+
+  // }
+
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   return (
     <div className="form">
       <form autoComplete="off" onSubmit={event => event.preventDefault()}>
@@ -20,8 +34,8 @@ export default function Login(props) {
               name="email"
               type="email"
               placeholder="Enter your email"
-            // value={email}
-            // onChange={(event) => { setEmail(event.target.value) }}
+              value={email}
+              onChange={(event) => { setEmail(event.target.value) }}
             />
           </div>
           <div class="form-group">
@@ -30,18 +44,16 @@ export default function Login(props) {
               class="form-control"
               id="exampleInputPassword1"
               name="password"
-              type="email"
+              type="text"
               placeholder="Enter your password"
-            // value={password}
-            // onChange={(event) => { setPassword(event.target.value) }}
+              value={password}
+              onChange={(event) => { setPassword(event.target.value) }}
             />
           </div>
 
-          <button type="submit" class="btn btn-primary">Login</button>
-
+          <button type="submit" onClick={() => { props.submitlogin(email, password) }} class="btn btn-primary">Login</button>
         </div>
       </form >
-      <br />
       <footer>
         <Link to="./Register">
           <p> Create an Account</p>

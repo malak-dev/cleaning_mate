@@ -71,14 +71,13 @@ module.exports = db => {
   });
 
   //Select a specific client (login)
-  router.get("/", (req, res) => {
-    //const { email, password } = req.body;
-    let email = "afalconer02@gmail.com";
-    let password = "12345";
+  router.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
 
     const query = {
       text:
-        "SELECT email, password, id FROM clients WHERE email =$1 and password=$2;",
+        "SELECT * FROM clients WHERE email =$1 and password=$2;",
       values: [email, password]
     };
     db.query(query).then(resDb => {

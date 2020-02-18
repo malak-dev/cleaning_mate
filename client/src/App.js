@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios'
 import './App.css';
 import Login from "./components/Login";
 import Register from "./components/Register"
@@ -22,6 +23,56 @@ import {
 
 function App() {
   const [userType, setUserType] = useState('client')
+
+  // const setUserTypeFunction = (type) => {
+  //   setUserType(prev => (type);
+  // }
+  // send the login information to the backend
+  const submitlogin = (email, password) => {
+
+    const data = {
+      email: email,
+      password: password
+    }
+    axios.post('/api/clients/login', data)
+      .then((response) => {
+        console.log('submit login fn')
+        console.log(response)
+      }).catch((err) => {
+        console.log(err)
+      })
+
+  }
+  //create a new account 
+  const submitRegister = (first_name, last_name, email, password, phone_number, address) => {
+    const data = {
+      first_name,
+      last_name,
+      email,
+      password,
+      phone_number,
+      address
+    }
+    axios.post('/api/clients', data)
+      .then((response) => {
+        console.log('submit login fn')
+        console.log(response)
+      }).catch((err) => {
+        console.log(err)
+      })
+
+  }
+  const userId = 2;
+  //get all the appointments
+  axios.get(`/api/clients/${userId}/appointments`)
+
+    .then(response => {
+      console.log(response.data)
+      console.log("hello")
+    }).catch((err) => {
+      console.log(err)
+    })
+
 
   return (
 
@@ -51,10 +102,12 @@ function App() {
         </nav>
         <Switch>
           <Route path="/login">
-            <Login />
+            <Login
+              submitlogin={submitlogin} />
           </Route>
           <Route path="/register">
-            <Register />
+            <Register
+              submitRegister={submitRegister} />
           </Route>
           <Route path="/edit-profile">
             <Header />
@@ -70,7 +123,7 @@ function App() {
             <ClientHome />
           </Route>
           <Route path="/">
-            <Main />
+            <Main setUserType={setUserType} />
           </Route>
         </Switch>
       </div>
@@ -78,6 +131,7 @@ function App() {
     </Router>
 
   );
+
 }
 
 export default App;
