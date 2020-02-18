@@ -29,7 +29,7 @@ INSERT INTO appointments
 VALUES
 ('2020-03-03',12,1,false,15,null,null,null,2);
 
--- Update existing Appointments   when you book || when 
+-- Update existing Appointments   when you book, rate, comment || when you change $/hour
 UPDATE appointments
 SET date = ,start_time= ,hours= ,booked = ,cost_per_hour =,comment =,rating= ,client_id= ,provider_id= 
 WHERE id = IdToUpdate
@@ -54,20 +54,17 @@ WHERE a.provider_id = ID_selected
 
 -- Identify cleaners that are available as per selection from the client
      -- 1. select all appointments not booked in the client's selection
-     -- 2. Count the number of appointments per providers
-     -- 3. filter to keep providers when the number in #2 is >= the hours selected by the customer
-     -- 4. return the available providers and theirs ratings
+     -- 2. return the available providers and theirs ratings
+     -- *** filter the results on the Front End
+
 SELECT *
-FROM (
-SELECT provider_id,count(hour) as hour
 FROM appointments 
-WHERE booked = false and date = selectedDate and start_time >= selected_startTime and start_time <= (selected_startTime + selected_hours) 
-GROUP BY provider_id ) as view1
-JOIN providers as b on view1.provider_id = b.id
-JOIN (
-  SELECT provider_id, avg(rating)::numeric(10,2) 
+JOIN (SELECT provider_id, avg(rating)::numeric(10,2) 
   FROM appointments 
   WHERE date <= now() - interval '1 day' 
-  GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id
+  GROUP by provider_id) as b on  a.provider_id = b.provider_id 
+WHERE a.booked = false and a.date = selectedDate  
 
-WHERE view1.hour >= selected_hours
+
+
+

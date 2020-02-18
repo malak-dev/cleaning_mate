@@ -1,15 +1,15 @@
 const router = require("express").Router();
 
-// Get all appointment for selected client
 module.exports = db => {
+  // Get all appointment for selected client
   router.get("/:userId/appointments", (req, res) => {
-    let userId = req.params.userId;
+    const userId = req.params.userId;
     console.log(userId);
-    let query = {
+    const query = {
       text: `SELECT a.date,a.start_time, b.first_name,  
       CASE
       WHEN date > now() THEN 'Upcoming'
-      ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating
+      ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating, a.id
       FROM appointments as a
       JOIN providers as b on b.id = a.client_id
       WHERE a.client_id =$1 
@@ -35,7 +35,7 @@ module.exports = db => {
       address
     } = req.body;
 
-    let query = {
+    const query = {
       text:
         "INSERT INTO clients(email, password, first_name, last_name, phone_number, address) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6) RETURNING *;",
       values: [email, password, first_name, last_name, Number(number), address]
@@ -45,6 +45,7 @@ module.exports = db => {
 
   //Update existing client
   router.put("/:userId", (req, res) => {
+    const userId = req.params.userId;
     const {
       email,
       password,
@@ -54,7 +55,7 @@ module.exports = db => {
       address
     } = req.body;
 
-    let query = {
+    const query = {
       text: `UPDATE  clients SET email =$1 ,password=$2 ,first_name=$3 ,last_name=$4 ,phone_number=$5, address=$6  WHERE id=$7 ;`,
       values: [
         email,
@@ -70,6 +71,7 @@ module.exports = db => {
   });
 
   //Select a specific client (login)
+  //...
 
   return router;
 };
