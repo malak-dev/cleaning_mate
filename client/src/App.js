@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import "./App.css";
 import Login from "./components/Login";
+<<<<<<< HEAD
 import Register from "./components/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
@@ -13,6 +14,27 @@ import ClientAppointments from "./components/clients/ClientAppointments";
 import Calendar from "./components/clients/Calendar";
 import ClientHome from "./components/clients/ClientHome";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+=======
+import Register from "./components/Register"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import Header from './components/Header';
+import Main from './components/Main'
+import Edit from './components/Edit-profile'
+import ProviderAppointments from './components/providers/ProviedAppointments'
+import ClientAppointments from './components/clients/ClientAppointments'
+import Calendar from './components/clients/Calendar'
+import ClientHome from './components/clients/ClientHome'
+import PrividerList from './components/clients/ProviderList'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
+
+
+>>>>>>> master
 
 function App() {
   const [userType, setUserType] = useState("client");
@@ -25,12 +47,22 @@ function App() {
     const data = {
       email: email,
       password: password
+<<<<<<< HEAD
     };
     axios
       .post("/api/clients/login", data)
       .then(response => {
         console.log("submit login fn");
         console.log(response);
+=======
+    }
+    axios.post('/api/clients/login', data)
+      .then((response) => {
+        console.log('submit login fn')
+        //console.log(response)
+      }).catch((err) => {
+        console.log(err)
+>>>>>>> master
       })
       .catch(err => {
         console.log(err);
@@ -59,10 +91,14 @@ function App() {
         console.log("submit login fn");
         console.log(response);
       })
+<<<<<<< HEAD
       .catch(err => {
         console.log(err);
       });
   };
+=======
+  }
+>>>>>>> master
 
   const userId = 2;
   //get all the appointments
@@ -77,6 +113,33 @@ function App() {
     });
 
   console.log(test1);
+
+
+  // const date = {
+  //   date: "2020-03-03"
+  // }
+  // axios.post('/api/appointments', date)
+  //   .then(response => {
+  //     console.log("hellllllo", response);
+  //     console.log(response)
+  //   })
+  const submitDate = (time, duration, date) => {
+
+    const data = {
+      selected_startTime: time,
+      selected_hours: duration,
+      selectedDate: date
+    }
+    console.log("i am data", data)
+    axios.post('/api/appointments', data)
+      .then((response) => {
+        console.log('i am response', response)
+      }).catch((err) => {
+        console.log(err)
+      })
+
+  }
+
 
   return (
     <Router>
@@ -121,7 +184,9 @@ function App() {
           </Route>
           <Route path="/clientHome">
             <Header />
-            <ClientHome />
+            <ClientHome
+              submitDate={submitDate} />
+            <PrividerList />
           </Route>
           <Route path="/">
             <Main setUserType={setUserType} />

@@ -26,22 +26,28 @@ module.exports = db => {
 
   // get all appointments ( for a specific day and between a start date and end date)
   router.post("/", (req, res) => {
-    const { date } = req.body;
+    const { selected_startTime, selected_hours, selectedDate } = req.body;
+    console.log("i am body", req.body);
     const query = {
       text: `
-      SELECT *
-      FROM appointments as a
-      JOIN providers as c on a.provider_id = c.id
-      JOIN (SELECT provider_id, avg(rating)::numeric(10,2) 
-        FROM appointments 
-        WHERE date <= now() - interval '1 day' 
-        GROUP by provider_id) as b on  a.provider_id = b.provider_id 
-      WHERE a.booked = false and a.date = $1  `,
-      values: [date]
+      SELECT b.first_name, b.last_name, view2.rating, view1.cost_per_hour
+      FROM (
+      SELECT provider_id,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
+      FROM appointments
+      WHERE booked = false and date = $3 and start_time >= $1 and start_time <= ($1 + $2)
+      GROUP BY provider_id ) as view1
+      JOIN providers as b on view1.provider_id = b.id
+      JOIN (
+        SELECT provider_id, avg(rating)::numeric(10,2) as rating
+        FROM appointments
+        WHERE date <= now() - interval '1 day'
+        GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id
+      WHERE view1.hours >= $2;`,
+      values: [selected_startTime, selected_hours, selectedDate]
     };
     db.query(query)
       .then(resDb => {
-        console.log(resDb.rows);
+        console.log(resDb.rows, "request");
         res.json(resDb.rows);
       })
       .catch(err => console.error("query error", err.stack));
