@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
 import "./ClientAppointments.scss";
+import Comment from './Comment'
 export default function ClientAppointments(props) {
   const clientAppointments = props.clientAppointments || [];
   return (
     <table class="table table-hover">
-      <thead>
+      <thead class="thead-dark">
         <tr>
           <th scope="col">Date</th>
           <th scope="col">Client</th>
@@ -16,21 +17,18 @@ export default function ClientAppointments(props) {
         </tr>
       </thead>
       <tbody>
-        <div>
-          {clientAppointments.map(data => (
-            <div key={data.first_name}>
-              <tr>
-                <td>{data.date}</td>
-                <td>{data.first_name}</td>
-                <td>{data.status}</td>
-                <td>
-                  <Rater total={5} rating={data.rating} />
-                </td>
-                <td>{data.comment}</td>
-              </tr>
-            </div>
-          ))}
-        </div>
+        {clientAppointments.map(data => (
+
+          <tr key={data.id}>
+            <td >{data.date}</td>
+            <td>{data.first_name}</td>
+            <td>{data.status}</td>
+            <td><Rater total={5} rating={data.rating} /></td>
+            {data.comment && <td>{data.comment}</td>}
+            {!data.comment && <Comment />}
+
+          </tr>
+        ))}
       </tbody>
     </table>
   );

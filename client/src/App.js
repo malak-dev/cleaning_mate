@@ -4,7 +4,7 @@ import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Edit from "./components/Edit-profile";
@@ -17,6 +17,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [userType, setUserType] = useState("client");
+  const [userInformation, setUserInformation] = useState()
   const [clientAppointments, setClientAppointments] = useState("");
 
   // const setUserTypeFunction = (type) => {
@@ -29,10 +30,13 @@ function App() {
       password: password
     };
     axios
-      .post("/api/clients/login", data)
+      .post(`/api/${userType}s/login`, data)
       .then(response => {
-        console.log("submit login fn");
-        //console.log(response)
+        if (!response.data.error) {
+
+          setUserInformation(response.data)
+        }
+        console.log(response)
       })
       .catch(err => {
         console.log(err);
@@ -66,17 +70,17 @@ function App() {
 
   const userId = 2;
   //get all the appointments
-  const test1 = axios
-    .get(`/api/clients/${userId}/appointments`)
-    .then(response => {
-      console.log(response.data);
-      setClientAppointments(response.data);
-      console.log("hello");
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
+  useEffect(() => {
+    axios.get(`/api/clients/${userId}/appointments`)
+      .then(response => {
+        console.log(response.data);
+        setClientAppointments(response.data);
+        console.log("hello");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [])
   // const date = {
   //   date: "2020-03-03"
   // }
