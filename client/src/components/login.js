@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./login.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 export default function Login(props) {
@@ -17,8 +17,10 @@ export default function Login(props) {
 
   // }
 
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let history = useHistory();
   return (
     <div className="form">
       <form autoComplete="off" onSubmit={event => event.preventDefault()}>
@@ -54,15 +56,12 @@ export default function Login(props) {
             />
           </div>
 
-          <button
-            type="submit"
+          <button type="submit"
             onClick={() => {
-              props.submitlogin(email, password);
+              props.submitlogin(email, password, history);
             }}
-            class="btn btn-primary"
-          >
-            Login
-          </button>
+            class="btn btn-primary">Login
+           </button>
         </div>
       </form>
       <footer>
