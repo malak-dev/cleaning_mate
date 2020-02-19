@@ -12,6 +12,7 @@ import ProviderAppointments from './components/providers/ProviedAppointments'
 import ClientAppointments from './components/clients/ClientAppointments'
 import Calendar from './components/clients/Calendar'
 import ClientHome from './components/clients/ClientHome'
+import PrividerList from './components/clients/ProviderList'
 import {
   BrowserRouter as Router,
   Switch,
@@ -37,7 +38,7 @@ function App() {
     axios.post('/api/clients/login', data)
       .then((response) => {
         console.log('submit login fn')
-        console.log(response)
+        //console.log(response)
       }).catch((err) => {
         console.log(err)
       })
@@ -60,8 +61,8 @@ function App() {
       }).catch((err) => {
         console.log(err)
       })
-
   }
+
   const userId = 2;
   //get all the appointments
   axios.get(`/api/clients/${userId}/appointments`)
@@ -72,6 +73,33 @@ function App() {
     }).catch((err) => {
       console.log(err)
     })
+
+
+
+  // const date = {
+  //   date: "2020-03-03"
+  // }
+  // axios.post('/api/appointments', date)
+  //   .then(response => {
+  //     console.log("hellllllo", response);
+  //     console.log(response)
+  //   })
+  const submitDate = (time, duration, date) => {
+
+    const data = {
+      selected_startTime: time,
+      selected_hours: duration,
+      selectedDate: date
+    }
+    console.log("i am data", data)
+    axios.post('/api/appointments', data)
+      .then((response) => {
+        console.log('i am response', response)
+      }).catch((err) => {
+        console.log(err)
+      })
+
+  }
 
 
   return (
@@ -120,7 +148,9 @@ function App() {
           </Route>
           <Route path="/clientHome">
             <Header />
-            <ClientHome />
+            <ClientHome
+              submitDate={submitDate} />
+            <PrividerList />
           </Route>
           <Route path="/">
             <Main setUserType={setUserType} />
