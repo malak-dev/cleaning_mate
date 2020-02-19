@@ -25,7 +25,7 @@ export default function ClientAppointments(props) {
             <td>{data.status}</td>
             <td><Rater total={5} rating={data.rating} /></td>
             {data.comment && <td>{data.comment}</td>}
-            {!data.comment && <Comment />}
+            {!data.comment && <td><Comment /></td>}
 
           </tr>
         ))}

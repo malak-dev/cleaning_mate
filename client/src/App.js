@@ -73,6 +73,7 @@ function App() {
   useEffect(() => {
     axios.get(`/api/clients/${userId}/appointments`)
       .then(response => {
+        console.log("hi")
         console.log(response.data);
         setClientAppointments(response.data);
         console.log("hello");
