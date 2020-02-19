@@ -17,6 +17,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [userType, setUserType] = useState("client");
+  const [clientAppointments, setClientAppointments] = useState("");
 
   // const setUserTypeFunction = (type) => {
   //   setUserType(prev => (type);
@@ -69,13 +70,12 @@ function App() {
     .get(`/api/clients/${userId}/appointments`)
     .then(response => {
       console.log(response.data);
+      setClientAppointments(response.data);
       console.log("hello");
     })
     .catch(err => {
       console.log(err);
     });
-
-  console.log(test1);
 
   // const date = {
   //   date: "2020-03-03"
@@ -140,7 +140,9 @@ function App() {
           </Route>
           <Route path="/appointments">
             <Header />
-            {userType === "client" && <ClientAppointments />}
+            {userType === "client" && (
+              <ClientAppointments clientAppointments={clientAppointments} />
+            )}
             {userType === "provider" && <ProviderAppointments />}
           </Route>
           <Route path="/clientHome">

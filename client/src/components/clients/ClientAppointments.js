@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Rater from 'react-rater'
-import 'react-rater/lib/react-rater.css'
-import './ClientAppointments.scss'
+import React, { useState } from "react";
+import Rater from "react-rater";
+import "react-rater/lib/react-rater.css";
+import "./ClientAppointments.scss";
 export default function ClientAppointments(props) {
-
+  const clientAppointments = props.clientAppointments || [];
   return (
     <table class="table table-hover">
       <thead>
@@ -16,26 +16,22 @@ export default function ClientAppointments(props) {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td><Rater total={5} rating={2} /></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td><Rater total={5} rating={2} /></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        <div>
+          {clientAppointments.map(data => (
+            <div key={data.first_name}>
+              <tr>
+                <td>{data.date}</td>
+                <td>{data.first_name}</td>
+                <td>{data.status}</td>
+                <td>
+                  <Rater total={5} rating={data.rating} />
+                </td>
+                <td>{data.comment}</td>
+              </tr>
+            </div>
+          ))}
+        </div>
       </tbody>
     </table>
-  )
-
+  );
 }
