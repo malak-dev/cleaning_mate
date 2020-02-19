@@ -6,7 +6,6 @@ export default function ClientHome(props) {
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState("")
   const [duration, setDuration] = useState("")
-
   return (
     <div>
       <p>choose the date, any time you want to start and the duration </p>

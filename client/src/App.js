@@ -12,7 +12,7 @@ import ProviderAppointments from './components/providers/ProviedAppointments'
 import ClientAppointments from './components/clients/ClientAppointments'
 import Calendar from './components/clients/Calendar'
 import ClientHome from './components/clients/ClientHome'
-import PrividerList from './components/clients/ProviderList'
+import ProviderList from './components/clients/ProviderList'
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,6 +24,7 @@ import {
 
 function App() {
   const [userType, setUserType] = useState('client')
+  const [providerListData, setProviderListData] = useState("")
 
   // const setUserTypeFunction = (type) => {
   //   setUserType(prev => (type);
@@ -94,7 +95,8 @@ function App() {
     console.log("i am data", data)
     axios.post('/api/appointments', data)
       .then((response) => {
-        console.log('i am response', response)
+        console.log('i am response', response.data)
+        setProviderListData(response.data)
       }).catch((err) => {
         console.log(err)
       })
@@ -150,7 +152,8 @@ function App() {
             <Header />
             <ClientHome
               submitDate={submitDate} />
-            <PrividerList />
+            <ProviderList
+              providerListData={providerListData} />
           </Route>
           <Route path="/">
             <Main setUserType={setUserType} />
