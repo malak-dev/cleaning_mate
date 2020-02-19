@@ -25,12 +25,13 @@ module.exports = db => {
   });
 
   // get all appointments ( for a specific day and between a start date and end date)
-  router.get("/", (req, res) => {
+  router.post("/", (req, res) => {
     const { date } = req.body;
     const query = {
       text: `
       SELECT *
       FROM appointments as a
+      JOIN providers as c on a.provider_id = c.id
       JOIN (SELECT provider_id, avg(rating)::numeric(10,2) 
         FROM appointments 
         WHERE date <= now() - interval '1 day' 
