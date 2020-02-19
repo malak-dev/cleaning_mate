@@ -18,7 +18,7 @@ export default function ClientHome(props) {
       </div>
       <div class="form-group">
         <label >start time
-            <input
+          <input
             class="form-control"
             name="start-time"
             type="text"

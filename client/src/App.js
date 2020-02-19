@@ -1,10 +1,10 @@
-import React from 'react';
-import axios from 'axios'
-import './App.css';
+import React from "react";
+import axios from "axios";
+import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Main from './components/Main'
 import Edit from './components/Edit-profile'
@@ -20,10 +20,10 @@ import {
   Link
 } from "react-router-dom"
 
-
-
 function App() {
-  const [userType, setUserType] = useState('client')
+  const [userType, setUserType] = useState("client");
+  const [userInformation, setUserInformation] = useState()
+  const [clientAppointments, setClientAppointments] = useState("");
   const [providerListData, setProviderListData] = useState("")
 
   // const setUserTypeFunction = (type) => {
@@ -31,22 +31,35 @@ function App() {
   // }
   // send the login information to the backend
   const submitlogin = (email, password) => {
-
     const data = {
       email: email,
       password: password
-    }
-    axios.post('/api/clients/login', data)
-      .then((response) => {
-        console.log('submit login fn')
-        //console.log(response)
-      }).catch((err) => {
-        console.log(err)
-      })
+    };
+    axios
+      .post(`/api/${userType}s/login`, data)
+      .then(response => {
+        if (!response.data.error) {
 
-  }
-  //create a new account 
-  const submitRegister = (first_name, last_name, email, password, phone_number, address) => {
+          setUserInformation(response.data)
+        }
+        console.log(response)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  //create a new account
+  const submitRegister = (
+    first_name,
+    last_name,
+    email,
+    password,
+    phone_number,
+    address
+  ) => {
     const data = {
       first_name,
       last_name,
@@ -54,29 +67,27 @@ function App() {
       password,
       phone_number,
       address
-    }
-    axios.post('/api/clients', data)
-      .then((response) => {
-        console.log('submit login fn')
-        console.log(response)
-      }).catch((err) => {
-        console.log(err)
-      })
-  }
+    };
+    axios.post("/api/clients", data).then(response => {
+      console.log("submit login fn");
+      console.log(response);
+    });
+  };
 
   const userId = 2;
   //get all the appointments
-  axios.get(`/api/clients/${userId}/appointments`)
-
-    .then(response => {
-      console.log(response.data)
-      console.log("hello")
-    }).catch((err) => {
-      console.log(err)
-    })
-
-
-
+  useEffect(() => {
+    axios.get(`/api/clients/${userId}/appointments`)
+      .then(response => {
+        console.log("hi")
+        console.log(response.data);
+        setClientAppointments(response.data);
+        console.log("hello");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [])
   // const date = {
   //   date: "2020-03-03"
   // }
@@ -86,7 +97,6 @@ function App() {
   //     console.log(response)
   //   })
   const submitDate = (time, duration, date) => {
-
     const data = {
       selected_startTime: time,
       selected_hours: duration,
@@ -100,12 +110,12 @@ function App() {
       }).catch((err) => {
         console.log(err)
       })
-
-  }
-
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
-
     <Router>
       <div>
         <nav>
@@ -132,12 +142,10 @@ function App() {
         </nav>
         <Switch>
           <Route path="/login">
-            <Login
-              submitlogin={submitlogin} />
+            <Login submitlogin={submitlogin} />
           </Route>
           <Route path="/register">
-            <Register
-              submitRegister={submitRegister} />
+            <Register submitRegister={submitRegister} />
           </Route>
           <Route path="/edit-profile">
             <Header />
@@ -145,8 +153,10 @@ function App() {
           </Route>
           <Route path="/appointments">
             <Header />
-            {userType === 'client' && <ClientAppointments />}
-            {userType === 'provider' && <ProviderAppointments />}
+            {userType === "client" && (
+              <ClientAppointments clientAppointments={clientAppointments} />
+            )}
+            {userType === "provider" && <ProviderAppointments />}
           </Route>
           <Route path="/clientHome">
             <Header />
@@ -160,11 +170,8 @@ function App() {
           </Route>
         </Switch>
       </div>
-
     </Router>
-
   );
-
 }
 
 export default App;

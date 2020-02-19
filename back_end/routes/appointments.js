@@ -27,7 +27,7 @@ module.exports = db => {
   // get all appointments ( for a specific day and between a start date and end date)
   router.post("/", (req, res) => {
     const { selected_startTime, selected_hours, selectedDate } = req.body;
-    console.log("i am body", req.body)
+    console.log("i am body", req.body);
     const query = {
       text: `
       SELECT b.first_name, b.last_name, view2.rating, view1.cost_per_hour

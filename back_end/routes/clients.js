@@ -74,24 +74,21 @@ module.exports = db => {
   router.post("/login", (req, res) => {
     const { email, password } = req.body;
 
-
+    console.log('hello', email, password)
     const query = {
       text:
-        "SELECT * FROM clients WHERE email =$1 and password=$2;",
+        "SELECT * FROM clients WHERE email = $1 and password = $2;",
       values: [email, password]
     };
     db.query(query).then(resDb => {
-      console.log(resDb.rows[0].email);
-      console.log(resDb.rows[0].password);
+      console.log('then')
 
-      if (email !== resDb.rows[0].email) {
-        res.send("Email not in DataBase");
-      } else if (password !== resDb.rows[0].password) {
-        res.send("Wrong Password");
+      if (!resDb.rowCount) {
+        return res.json({ error: "Email or password not working" });
       } else {
-        res.json(resDb.rows);
+        return res.json(resDb.rows[0]);
       }
-    });
+    }).catch(err => console.log(err))
   });
 
   return router;
