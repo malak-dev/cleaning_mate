@@ -7,13 +7,13 @@ module.exports = db => {
     console.log(userId);
     const query = {
       text: `SELECT a.date,a.start_time, b.first_name,  
-      CASE
-      WHEN date > now() THEN 'Upcoming'
-      ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating, a.id
-      FROM appointments as a
-      JOIN clients as b on b.id = a.provider_id
-      WHERE a.provider_id =$1 
-      ORDER BY date desc, start_time desc;`,
+           CASE
+           WHEN date > now() THEN 'Upcoming'
+           ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating, a.id
+           FROM appointments as a
+           LEFT JOIN clients as b on b.id = a.client_id
+           WHERE a.provider_id =$1
+           ORDER BY date desc, start_time desc;`,
       values: [userId]
     };
     db.query(query)
@@ -26,21 +26,29 @@ module.exports = db => {
 
   // Insert New appointments for a specific provider
   router.post("/:userId/appointments", (req, res) => {
+    console.log(req.body);
     const userId = req.params.userId;
-    const { date, start_time, hours, cost_per_hour } = req.body;
+    const {
+      selected_date,
+      selected_startTime,
+      selected_hours,
+      costPerHour
+    } = req.body;
 
-    const query = {
-      text:
-        "INSERT INTO appointments (date, start_time, hours, cost_per_hour, provider_id) VALUES ($1 ,$2 ,$3 ,$4 ,$5) RETURNING *;",
-      values: [
-        date,
-        Number(start_time),
-        Number(hours),
-        Number(cost_per_hour),
-        Number(userId)
-      ]
-    };
-    db.query(query).then(dbRes => res.send(201));
+    let startTime = Number(selected_startTime);
+    let hours = Number(selected_hours);
+    let applist = [];
+    for (let i = 0; i < hours; i++) {
+      let sd = startTime + i;
+      const query = {
+        text:
+          "INSERT INTO appointments (date, start_time, cost_per_hour, provider_id) VALUES ($1 ,$2 ,$3 ,$4);",
+        values: [selected_date, sd, Number(costPerHour), Number(userId)]
+      };
+      applist.push(db.query(query));
+    }
+    console.log(applist);
+    Promise.all(applist).then(dbRes => res.send(201));
   });
 
   //Insert a new provider

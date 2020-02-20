@@ -8,6 +8,7 @@ export default function ProviderHome(props) {
   const [duration, setDuration] = useState(1);
   const [costPerHour, setCostPerHour] = useState(15);
 
+  console.log(props.providerAppointments);
   return (
     <div>
       <p>Manage your Availabilities </p>

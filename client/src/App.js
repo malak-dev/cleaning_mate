@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Edit from "./components/Edit-profile";
-import ProviderAppointments from "./components/providers/ProviedAppointments";
+import ProviderAppointments from "./components/providers/ProviderAppointments";
 import ClientAppointments from "./components/clients/ClientAppointments";
 import Calendar from "./components/clients/Calendar";
 import ClientHome from "./components/clients/ClientHome";
@@ -230,7 +230,11 @@ function App() {
             {userType === "client" && (
               <ClientAppointments clientAppointments={clientAppointments} />
             )}
-            {userType === "provider" && <ProviderAppointments />}
+            {userType === "provider" && (
+              <ProviderAppointments
+                providerAppointments={providerAppointments}
+              />
+            )}
           </Route>
           <Route path="/clientHome">
             <Header />
