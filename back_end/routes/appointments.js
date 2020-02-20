@@ -12,6 +12,7 @@ module.exports = db => {
   //   };
   //   db.query(query).then(dbRes => res.send(201));
   // });
+
   //upadat appointment with comment and rating 
   router.put("/:appointmentId", (req, res) => {
     const appointmentId = req.params.appointmentId;
@@ -24,26 +25,28 @@ module.exports = db => {
     db.query(query).then(
 
       dbRes => {
-        console.log(dbRes);
         res.json(dbRes.rows)
       });
   });
   // book an appointment
-  router.put("/:providerId", (req, res) => {
+  router.put("/book/:providerId", (req, res) => {
     const providerId = req.params.providerId;
     const { selected_startTime, selected_hours, selectedDate } = req.body;
-
+    console.log("/api/appointments/book/:providerId", req.body, req.params.providerId)
     let query = {
-      text: `UPDATE appointments SET booked=true  WHERE start_time =$1 , hours= $2 , Date =$3 , provider_id =$4 ;`,
-      values: [selected_startTime, selected_hours, selectedDate, providerId]
+      text: `UPDATE appointments SET booked = true  WHERE start_time = $1 and hours = $2 and date = $3 and provider_id = $4 RETURNING *;`,
+      values: [Number(selected_startTime), Number(selected_hours), selectedDate, providerId]
     };
     db.query(query).then(
 
       dbRes => {
-        console.log(dbRes);
+        console.log("i am boook", dbRes.rows);
         res.json(dbRes.rows)
-      });
+      }
+    );
   });
+
+
 
   // delete an appointment -- you can only delete if appointment is not already booked
   router.delete("/:appointmentId", (req, res) => {
@@ -57,12 +60,41 @@ module.exports = db => {
   });
 
   // get all appointments ( for a specific day and between a start date and end date)
+  // router.post("/", (req, res) => {
+  //   const { selected_startTime, selected_hours, selectedDate } = req.body;
+  //   console.log("i am body", req.body);
+  //   const query = {
+  //     text: `
+  //     SELECT *
+  //     FROM (
+  //     SELECT provider_id,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
+  //     FROM appointments
+  //     WHERE booked = false and date = $3 and start_time >= $1 and start_time <= ($1 + $2)
+  //     GROUP BY provider_id ) as view1
+  //     JOIN providers as b on view1.provider_id = b.id
+  //     JOIN (
+  //       SELECT provider_id, avg(rating)::numeric(10,2) as rating
+  //       FROM appointments
+  //       WHERE date <= now() - interval '1 day'
+  //       GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id
+  //     WHERE view1.hours >= $2;`,
+  //     values: [selected_startTime, selected_hours, selectedDate]
+  //   };
+  //   db.query(query)
+  //     .then(resDb => {
+  //       res.json(resDb.rows);
+  //     })
+  //     .catch(err => console.error("query error", err.stack));
+  // });
+
+
+
   router.post("/", (req, res) => {
     const { selected_startTime, selected_hours, selectedDate } = req.body;
     console.log("i am body", req.body);
     const query = {
       text: `
-      SELECT b.first_name, b.last_name, view2.rating, view1.cost_per_hour,b.id
+      SELECT *
       FROM (
       SELECT provider_id,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
       FROM appointments
@@ -79,7 +111,6 @@ module.exports = db => {
     };
     db.query(query)
       .then(resDb => {
-        console.log(resDb.rows, "request");
         res.json(resDb.rows);
       })
       .catch(err => console.error("query error", err.stack));

@@ -1,0 +1,21 @@
+SELECT *
+      FROM 
+      (
+      SELECT provider_id AS original_provider_id ,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
+      FROM appointments
+      WHERE booked = false and date = '2020-03-03T05:00:00.000Z' and start_time >= 6 and start_time <= (10)
+      GROUP BY provider_id ) as view1
+      JOIN providers as b on view1.original_provider_id = b.id
+      JOIN (
+        SELECT provider_id, avg(rating)::numeric(10,2) as rating
+        FROM appointments
+        WHERE date <= now() - interval '1 day'
+        GROUP by provider_id) as view2 on  view1.original_provider_id = view2.provider_id
+      WHERE view1.hours >= 1;
+
+
+
+
+      i am body { selected_startTime: '8',
+  selected_hours: '1',
+  selectedDate: '2020-03-02T05:00:00.000Z' }
