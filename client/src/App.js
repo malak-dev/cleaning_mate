@@ -29,24 +29,18 @@ function App() {
   const [providerListData, setProviderListData] = useState("")
 
 
-  // let location = useLocation();
 
-  // const setUserTypeFunction = (type) => {
-  //   setUserType(prev => (type);
-  // }
   // send the login information to the backend
   const submitlogin = (email, password, history) => {
     const data = {
       email: email,
       password: password
     };
-    axios
-      .post(`/api/${userType}s/login`, data)
+    axios.post(`/api/${userType}s/login`, data)
       .then(response => {
         if (!response.data.error) {
 
           setUserInformation(response.data)
-
           history.replace("/clientHome");
         }
         console.log(response)
@@ -59,14 +53,7 @@ function App() {
       });
   };
   //create a new account
-  const submitRegister = (
-    first_name,
-    last_name,
-    email,
-    password,
-    phone_number,
-    address
-  ) => {
+  const submitRegister = (first_name, last_name, email, password, phone_number, address) => {
     const data = {
       first_name,
       last_name,
@@ -81,7 +68,7 @@ function App() {
     });
   };
 
-  const userId = 2;
+  const userId = 1;
   //get all the appointments
   useEffect(() => {
     axios.get(`/api/clients/${userId}/appointments`)
@@ -110,10 +97,9 @@ function App() {
       }).catch((err) => {
         console.log(err)
       })
-      .catch(err => {
-        console.log(err);
-      });
   };
+
+
 
   return (
     <Router>

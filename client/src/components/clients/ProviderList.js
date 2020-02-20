@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Rater from 'react-rater'
 import 'react-rater/lib/react-rater.css'
+import './providerList.scss'
 
 
 export default function ProviderList(props) {
   const providerListData = props.providerListData || [];
   return (
-    <div>
+    <div >
       {
         providerListData.map((data) => (
           <div key={data.first_name}>
@@ -15,6 +16,7 @@ export default function ProviderList(props) {
             <Rater total={5} rating={data.rating} />
             <button type="submit" class="btn btn-primary">Requset</button>
           </div>
+
         ))
       }
     </div>
