@@ -1,11 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
 import "./ClientAppointments.scss";
 import Comment from './Comment'
+import axios from 'axios'
+
+
+
 export default function ClientAppointments(props) {
   const [rating, setRating] = useState(0)
-  const clientAppointments = props.clientAppointments || [];
+  const { userInformation } = props
+  const [clientAppointments, setClientAppointments] = useState([]);
+
+
+  function getClientAppointments(id) {
+    axios
+      .get(`/api/clients/${id}/appointments`)
+      .then(response => {
+        setClientAppointments(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    if (userInformation) {
+      getClientAppointments(userInformation.id)
+    }
+
+  }, []);
   return (
     <table className="table table-hover">
       <thead className="thead-dark">

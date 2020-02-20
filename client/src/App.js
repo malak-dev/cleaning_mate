@@ -26,7 +26,6 @@ import {
 function App() {
   const [userType, setUserType] = useState("client");
   const [userInformation, setUserInformation] = useState();
-  const [clientAppointments, setClientAppointments] = useState("");
   const [providerListData, setProviderListData] = useState("");
   const [pendingAppointmentDate, setPendingAppointmentData] = useState("")
 
@@ -48,9 +47,7 @@ function App() {
       .then(response => {
         if (!response.data.error) {
 
-          setUserInformation(response.data)
           localStorage.setItem('userInformation', JSON.stringify(response.data))
-          setUserInformation(response.data);
 
           setUserInformation(response.data);
           if (userType === "client") {
@@ -58,8 +55,6 @@ function App() {
           } else {
             history.replace("/providerHome");
           }
-          history.replace("/clientHome");
-          master;
         }
         console.log(response);
       })
@@ -124,16 +119,7 @@ function App() {
   };
   //get all the appointments
 
-  function getClientAppointments(id) {
-    axios
-      .get(`/api/clients/${id}/appointments`)
-      .then(response => {
-        setClientAppointments(response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+
 
 
 
@@ -144,12 +130,7 @@ function App() {
   }, [])
 
 
-  useEffect(() => {
-    if (userInformation) {
-      getClientAppointments(userInformation.id)
-    }
 
-  }, [userInformation]);
 
 
   // submit date ,time and duration and get all the available appointments
@@ -176,7 +157,8 @@ function App() {
       selected_startTime: appointentDateData.selected_startTime,
       selected_hours: appointentDateData.selected_hours,
       selectedDate: appointentDateData.selectedDate,
-      providerId: id
+      providerId: id,
+      clientId: userInformation.id
     };
     console.log(id, "i am id")
     axios.put(`/api/appointments/book/${id}`, data)
@@ -185,108 +167,85 @@ function App() {
         // setClientAppointments({...clientAppointments, response.data})
       });
     // to get all appointments from the provider
-    function getProviderAppointments(id) {
-      axios
-        .get(`/api/providers/${id}/appointments`)
-        .then(response => {
-          console.log("response from the get appoint provider", response.data);
-          setProviderAppointments(response.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-
-    // create a new appointment (From the provider home page)
-    const createAppointment = (time, duration, date, costPerHour, id) => {
-      const data = {
-        selected_startTime: time,
-        selected_hours: duration,
-        selected_date: date,
-        costPerHour: costPerHour
-      };
-      console.log("Data runned for createAppointment fct", data);
-      axios
-        .post(`/api/providers/${id}/appointments`, data)
-        .then(response => {
-          console.log("response from create an appointment post!", response.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      getProviderAppointments(id);
-    };
-
-    return (
-      <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">main</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <li>
-                <Link to="/edit-profile">profile</Link>
-              </li>
-              <li>
-                <Link to="/appointments">Appointments</Link>
-              </li>
-              <li>
-                <Link to="/clientHome">Client Home</Link>
-              </li>
-              <li>
-                <Link to="/providerHome">Provider Home</Link>
-              </li>
-            </ul>
-          </nav>
-          <Switch>
-            <Route path="/login">
-              <Login submitlogin={submitlogin} />
-            </Route>
-            <Route path="/register">
-              <Register submitRegister={submitRegister} />
-            </Route>
-            <Route path="/edit-profile">
-              <Header />
-              <Edit userInformation={userInformation} updateUser={updateUser} />
-            </Route>
-            <Route path="/appointments">
-              <Header />
-              {userType === "client" && (
-                <ClientAppointments clientAppointments={clientAppointments} />
-              )}
-              {userType === "provider" && (
-                <ProviderAppointments
-                  providerAppointments={providerAppointments}
-                />
-              )}
-            </Route>
-            <Route path="/clientHome">
-              <Header />
-              <ClientHome submitDate={submitDate} />
-              <ProviderList providerListData={providerListData} pendingAppointmentDate={pendingAppointmentDate} bookAppointment={bookAppointment} />
-            </Route>
-            <Route path="/providerHome">
-              <Header />
-              <ProviderHome
-                createAppointment={createAppointment}
-                providerAppointments={providerAppointments}
-                userInformation={userInformation}
-              />
-            </Route>
-            <Route path="/">
-              <Main setUserType={setUserType} />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    );
+  }
+  function getProviderAppointments(id) {
+    axios
+      .get(`/api/providers/${id}/appointments`)
+      .then(response => {
+        console.log("response from the get appoint provider", response.data);
+        setProviderAppointments(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  export default App;
+  // create a new appointment (From the provider home page)
+  const createAppointment = (time, duration, date, costPerHour, id) => {
+    const data = {
+      selected_startTime: time,
+      selected_hours: duration,
+      selected_date: date,
+      costPerHour: costPerHour
+    };
+    console.log("Data runned for createAppointment fct", data);
+    axios
+      .post(`/api/providers/${id}/appointments`, data)
+      .then(response => {
+        console.log("response from create an appointment post!", response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    getProviderAppointments(id);
+  };
+
+  return (
+    <Router>
+      <div>
+
+        <Switch>
+          <Route path="/login">
+            <Login submitlogin={submitlogin} />
+          </Route>
+          <Route path="/register">
+            <Register submitRegister={submitRegister} />
+          </Route>
+          <Route path="/edit-profile">
+            <Header />
+            <Edit userInformation={userInformation} updateUser={updateUser} />
+          </Route>
+          <Route path="/appointments">
+            <Header />
+            {userType === "client" && (
+              <ClientAppointments userInformation={userInformation} />
+            )}
+            {userType === "provider" && (
+              <ProviderAppointments
+                providerAppointments={providerAppointments}
+              />
+            )}
+          </Route>
+          <Route path="/clientHome">
+            <Header />
+            <ClientHome submitDate={submitDate} />
+            <ProviderList providerListData={providerListData} pendingAppointmentDate={pendingAppointmentDate} bookAppointment={bookAppointment} />
+          </Route>
+          <Route path="/providerHome">
+            <Header />
+            <ProviderHome
+              createAppointment={createAppointment}
+              providerAppointments={providerAppointments}
+              userInformation={userInformation}
+            />
+          </Route>
+          <Route path="/">
+            <Main setUserType={setUserType} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
