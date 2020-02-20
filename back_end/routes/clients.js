@@ -40,7 +40,9 @@ module.exports = db => {
         "INSERT INTO clients(email, password, first_name, last_name, phone_number, address) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6) RETURNING *;",
       values: [email, password, first_name, last_name, Number(number), address]
     };
-    db.query(query).then(dbRes => res.send(201));
+    db.query(query)
+      .then(dbRes => res.send(201))
+      .catch(err => console.log(err));
   });
 
   //Update existing client
@@ -56,7 +58,7 @@ module.exports = db => {
     } = req.body;
 
     const query = {
-      text: `UPDATE  clients SET email =$1 ,password=$2 ,first_name=$3 ,last_name=$4 ,phone_number=$5, address=$6  WHERE id=$7 ;`,
+      text: `UPDATE  clients SET email =$1 ,password=$2 ,first_name=$3 ,last_name=$4 ,phone_number=$5, address=$6  WHERE id=$7 returning * ;`,
       values: [
         email,
         password,
@@ -67,28 +69,35 @@ module.exports = db => {
         userId
       ]
     };
-    db.query(query).then(dbRes => res.send(201));
+    db.query(query)
+      .then(dbRes => console.log(dbRes))
+      .then(resDb => {
+        return res.json(resDb.rows[0]);
+      })
+      .catch(err => console.log(err));
+    //then(dbRes => res.send(201));
   });
 
   //Select a specific client (login)
   router.post("/login", (req, res) => {
     const { email, password } = req.body;
 
-    console.log('hello', email, password)
+    console.log("hello", email, password);
     const query = {
-      text:
-        "SELECT * FROM clients WHERE email = $1 and password = $2;",
+      text: "SELECT * FROM clients WHERE email = $1 and password = $2;",
       values: [email, password]
     };
-    db.query(query).then(resDb => {
-      console.log('then')
+    db.query(query)
+      .then(resDb => {
+        console.log("then");
 
-      if (!resDb.rowCount) {
-        return res.json({ error: "Email or password not working" });
-      } else {
-        return res.json(resDb.rows[0]);
-      }
-    }).catch(err => console.log(err))
+        if (!resDb.rowCount) {
+          return res.json({ error: "Email or password not working" });
+        } else {
+          return res.json(resDb.rows[0]);
+        }
+      })
+      .catch(err => console.log(err));
   });
 
   return router;
