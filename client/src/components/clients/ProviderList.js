@@ -5,6 +5,12 @@ import './providerList.scss'
 
 
 export default function ProviderList(props) {
+
+  const bookAppointment = () => {
+
+  }
+
+
   const providerListData = props.providerListData || [];
   return (
     <div >

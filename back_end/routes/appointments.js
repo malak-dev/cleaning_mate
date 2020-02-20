@@ -12,7 +12,7 @@ module.exports = db => {
   //   };
   //   db.query(query).then(dbRes => res.send(201));
   // });
-
+  //upadat appointment with comment and rating 
   router.put("/:appointmentId", (req, res) => {
     const appointmentId = req.params.appointmentId;
     const { rating, comment } = req.body;
@@ -20,6 +20,22 @@ module.exports = db => {
     let query = {
       text: `UPDATE appointments SET rating=$1 ,comment=$2  WHERE id=$3 ;`,
       values: [rating, comment, appointmentId]
+    };
+    db.query(query).then(
+
+      dbRes => {
+        console.log(dbRes);
+        res.json(dbRes.rows)
+      });
+  });
+  // book an appointment
+  router.put("/:providerId", (req, res) => {
+    const providerId = req.params.providerId;
+    const { selected_startTime, selected_hours, selectedDate } = req.body;
+
+    let query = {
+      text: `UPDATE appointments SET booked=true  WHERE start_time =$1 , hours= $2 , Date =$3 , provider_id =$4 ;`,
+      values: [selected_startTime, selected_hours, selectedDate, providerId]
     };
     db.query(query).then(
 
@@ -46,7 +62,7 @@ module.exports = db => {
     console.log("i am body", req.body);
     const query = {
       text: `
-      SELECT b.first_name, b.last_name, view2.rating, view1.cost_per_hour
+      SELECT b.first_name, b.last_name, view2.rating, view1.cost_per_hour,b.id
       FROM (
       SELECT provider_id,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
       FROM appointments

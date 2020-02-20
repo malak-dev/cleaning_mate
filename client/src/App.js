@@ -38,13 +38,8 @@ function App() {
     axios.post(`/api/${userType}s/login`, data)
       .then(response => {
         if (!response.data.error) {
-<<<<<<< HEAD
 
           setUserInformation(response.data)
-=======
-          setUserInformation(response.data);
-
->>>>>>> master
           history.replace("/clientHome");
         }
         console.log(response);
@@ -72,9 +67,6 @@ function App() {
     });
   };
 
-<<<<<<< HEAD
-  const userId = 1;
-=======
   //Update a new account
   const updateUser = (
     id,
@@ -107,29 +99,25 @@ function App() {
   };
 
   const userId = 2;
->>>>>>> master
   //get all the appointments
   useEffect(() => {
     axios
       .get(`/api/clients/${userId}/appointments`)
       .then(response => {
-        console.log("hi");
-        console.log(response.data);
         setClientAppointments(response.data);
-        console.log("hello");
       })
       .catch(err => {
         console.log(err);
       });
   }, []);
-  // submit date ,time and duration
+
+  // submit date ,time and duration and get all the available appointments
   const submitDate = (time, duration, date) => {
     const data = {
       selected_startTime: time,
       selected_hours: duration,
       selectedDate: date
     };
-    console.log("i am data", data);
     axios
       .post("/api/appointments", data)
       .then(response => {
