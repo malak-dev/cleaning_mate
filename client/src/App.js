@@ -13,7 +13,14 @@ import ClientAppointments from "./components/clients/ClientAppointments";
 import Calendar from "./components/clients/Calendar";
 import ClientHome from "./components/clients/ClientHome";
 import ProviderList from "./components/clients/ProviderList";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
 function App() {
   const [userType, setUserType] = useState("client");
@@ -21,11 +28,13 @@ function App() {
   const [clientAppointments, setClientAppointments] = useState("");
   const [providerListData, setProviderListData] = useState("");
 
+  // let location = useLocation();
+
   // const setUserTypeFunction = (type) => {
   //   setUserType(prev => (type);
   // }
   // send the login information to the backend
-  const submitlogin = (email, password) => {
+  const submitlogin = (email, password, history) => {
     const data = {
       email: email,
       password: password
@@ -35,6 +44,8 @@ function App() {
       .then(response => {
         if (!response.data.error) {
           setUserInformation(response.data);
+
+          history.replace("/clientHome");
         }
         console.log(response);
       })
@@ -114,15 +125,7 @@ function App() {
         console.log(err);
       });
   }, []);
-  // const date = {
-  //   date: "2020-03-03"
-  // }
-  // axios.post('/api/appointments', date)
-  //   .then(response => {
-  //     console.log("hellllllo", response);
-  //     console.log(response)
-  //   })
-
+  // submit date ,time and duration
   const submitDate = (time, duration, date) => {
     const data = {
       selected_startTime: time,
