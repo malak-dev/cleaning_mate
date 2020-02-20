@@ -5,17 +5,6 @@ import axios from "axios";
 
 export default function Login(props) {
   console.log(props, "hello");
-  // function submitlogin(email, password) {
-  //   const data = {
-  //     email: email,
-  //     password: password
-  //   }
-
-  //   axios.post('/login', data).then(() => {
-
-  //   })
-
-  // }
 
 
   const [email, setEmail] = useState("");

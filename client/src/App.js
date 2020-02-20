@@ -27,9 +27,12 @@ function App() {
   const [userInformation, setUserInformation] = useState();
   const [clientAppointments, setClientAppointments] = useState("");
   const [providerListData, setProviderListData] = useState("");
+  const [pendingAppointmentDate, setPendingAppointmentData] = useState("")
 
 
   // send the login information to the backend
+
+
   const submitlogin = (email, password, history) => {
     const data = {
       email: email,
@@ -40,6 +43,7 @@ function App() {
         if (!response.data.error) {
 
           setUserInformation(response.data)
+          localStorage.setItem('userInformation', JSON.stringify(response.data))
           history.replace("/clientHome");
         }
         console.log(response);
@@ -97,19 +101,35 @@ function App() {
         console.log(err);
       });
   };
-
-  const userId = 2;
   //get all the appointments
-  useEffect(() => {
+
+  function getClientAppointments(id) {
     axios
-      .get(`/api/clients/${userId}/appointments`)
+      .get(`/api/clients/${id}/appointments`)
       .then(response => {
         setClientAppointments(response.data);
       })
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }
+
+
+
+  useEffect(() => {
+    const _userInformation = localStorage.getItem('userInformation')
+    setUserInformation(JSON.parse(_userInformation))
+
+  }, [])
+
+
+  useEffect(() => {
+    if (userInformation) {
+      getClientAppointments(userInformation.id)
+    }
+
+  }, [userInformation]);
+
 
   // submit date ,time and duration and get all the available appointments
   const submitDate = (time, duration, date) => {
@@ -123,13 +143,27 @@ function App() {
       .then(response => {
         console.log("i am response", response.data);
         setProviderListData(response.data);
+        setPendingAppointmentData(data);
       })
       .catch(err => {
         console.log(err);
       })
   };
 
-
+  const bookAppointment = (id, appointentDateData) => {
+    const data = {
+      selected_startTime: appointentDateData.selected_startTime,
+      selected_hours: appointentDateData.selected_hours,
+      selectedDate: appointentDateData.selectedDate,
+      providerId: id
+    };
+    console.log(id, "i am id")
+    axios.put(`/api/appointments/book/${id}`, data)
+      .then(response => {
+        setPendingAppointmentData({})
+        // setClientAppointments({...clientAppointments, response.data})
+      });
+  };
 
   return (
     <Router>
@@ -177,7 +211,7 @@ function App() {
           <Route path="/clientHome">
             <Header />
             <ClientHome submitDate={submitDate} />
-            <ProviderList providerListData={providerListData} />
+            <ProviderList providerListData={providerListData} pendingAppointmentDate={pendingAppointmentDate} bookAppointment={bookAppointment} />
           </Route>
           <Route path="/">
             <Main setUserType={setUserType} />

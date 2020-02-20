@@ -7,8 +7,8 @@ export default function ClientAppointments(props) {
   const [rating, setRating] = useState(0)
   const clientAppointments = props.clientAppointments || [];
   return (
-    <table class="table table-hover">
-      <thead class="thead-dark">
+    <table className="table table-hover">
+      <thead className="thead-dark">
         <tr>
           <th scope="col">Date</th>
           <th scope="col">Provider</th>
@@ -24,12 +24,12 @@ export default function ClientAppointments(props) {
             <td >{data.date}</td>
             <td>{data.first_name}</td>
             <td>{data.status}</td>
-            {data.status == "Completed" &&
+            {data.status === "Completed" &&
               (<td><Rater total={5} rating={data.rating || rating}
                 onRate={({ rating }) => { setRating(rating) }} /></td>)}
-            {data.status == "Upcoming" && <td> </td>}
+            {data.status === "Upcoming" && <td> </td>}
             {data.comment && <td>{data.comment}</td>}
-            {data.status == "Completed" && (!data.comment && <td><Comment rating={rating}
+            {data.status === "Completed" && (!data.comment && <td><Comment rating={rating}
               id={data.id} /></td>)}
           </tr>
         ))}
