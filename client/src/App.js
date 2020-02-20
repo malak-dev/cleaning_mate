@@ -12,6 +12,7 @@ import ProviderAppointments from "./components/providers/ProviedAppointments";
 import ClientAppointments from "./components/clients/ClientAppointments";
 import Calendar from "./components/clients/Calendar";
 import ClientHome from "./components/clients/ClientHome";
+import ProviderHome from "./components/providers/ProviderHome";
 import ProviderList from "./components/clients/ProviderList";
 import {
   BrowserRouter as Router,
@@ -27,6 +28,7 @@ function App() {
   const [userInformation, setUserInformation] = useState();
   const [clientAppointments, setClientAppointments] = useState("");
   const [providerListData, setProviderListData] = useState("");
+  const [providerAppointments, setProviderAppointments] = useState("");
 
   // let location = useLocation();
 
@@ -34,6 +36,7 @@ function App() {
   //   setUserType(prev => (type);
   // }
   // send the login information to the backend
+
   const submitlogin = (email, password, history) => {
     const data = {
       email: email,
@@ -44,18 +47,19 @@ function App() {
       .then(response => {
         if (!response.data.error) {
           setUserInformation(response.data);
-
-          history.replace("/clientHome");
+          if (userType === "client") {
+            history.replace("/clientHome");
+          } else {
+            history.replace("/providerHome");
+          }
         }
         console.log(response);
       })
       .catch(err => {
         console.log(err);
-      })
-      .catch(err => {
-        console.log(err);
       });
   };
+
   //create a new account
   const submitRegister = (
     first_name,
@@ -79,7 +83,7 @@ function App() {
     });
   };
 
-  //Update a new account
+  //Update an account (now only for client, need to update to include provider)
   const updateUser = (
     id,
     first_name,
@@ -111,6 +115,7 @@ function App() {
   };
 
   const userId = 2;
+
   //get all the appointments
   useEffect(() => {
     axios
@@ -125,7 +130,8 @@ function App() {
         console.log(err);
       });
   }, []);
-  // submit date ,time and duration
+
+  // See avalabilites of providers when a Client selects a date
   const submitDate = (time, duration, date) => {
     const data = {
       selected_startTime: time,
@@ -145,6 +151,39 @@ function App() {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  // to get all appointments from the provider
+  function getProviderAppointments(id) {
+    axios
+      .get(`/api/providers/${id}/appointments`)
+      .then(response => {
+        console.log("response from the get appoint provider", response.data);
+        setProviderAppointments(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  // create a new appointment (From the provider home page)
+  const createAppointment = (time, duration, date, costPerHour, id) => {
+    const data = {
+      selected_startTime: time,
+      selected_hours: duration,
+      selected_date: date,
+      costPerHour: costPerHour
+    };
+    console.log("Data runned for createAppointment fct", data);
+    axios
+      .post(`/api/providers/${id}/appointments`, data)
+      .then(response => {
+        console.log("response from create an appointment post!", response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    getProviderAppointments(id);
   };
 
   return (
@@ -170,6 +209,9 @@ function App() {
             <li>
               <Link to="/clientHome">Client Home</Link>
             </li>
+            <li>
+              <Link to="/providerHome">Provider Home</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
@@ -194,6 +236,14 @@ function App() {
             <Header />
             <ClientHome submitDate={submitDate} />
             <ProviderList providerListData={providerListData} />
+          </Route>
+          <Route path="/providerHome">
+            <Header />
+            <ProviderHome
+              createAppointment={createAppointment}
+              providerAppointments={providerAppointments}
+              userInformation={userInformation}
+            />
           </Route>
           <Route path="/">
             <Main setUserType={setUserType} />
