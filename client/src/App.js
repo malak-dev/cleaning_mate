@@ -8,10 +8,11 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Edit from "./components/Edit-profile";
-import ProviderAppointments from "./components/providers/ProviedAppointments";
+import ProviderAppointments from "./components/providers/ProviderAppointments";
 import ClientAppointments from "./components/clients/ClientAppointments";
 import Calendar from "./components/clients/Calendar";
 import ClientHome from "./components/clients/ClientHome";
+import ProviderHome from "./components/providers/ProviderHome";
 import ProviderList from "./components/clients/ProviderList";
 import {
   BrowserRouter as Router,
@@ -33,30 +34,49 @@ function App() {
   // send the login information to the backend
 
 
+  const [providerAppointments, setProviderAppointments] = useState("");
+
+  // send the login information to the backend
+
   const submitlogin = (email, password, history) => {
     const data = {
       email: email,
       password: password
     };
-    axios.post(`/api/${userType}s/login`, data)
+    axios
+      .post(`/api/${userType}s/login`, data)
       .then(response => {
         if (!response.data.error) {
 
           setUserInformation(response.data)
           localStorage.setItem('userInformation', JSON.stringify(response.data))
+          setUserInformation(response.data);
+
+          setUserInformation(response.data);
+          if (userType === "client") {
+            history.replace("/clientHome");
+          } else {
+            history.replace("/providerHome");
+          }
           history.replace("/clientHome");
+          master;
         }
         console.log(response);
       })
       .catch(err => {
         console.log(err);
-      })
-      .catch(err => {
-        console.log(err);
       });
   };
+
   //create a new account
-  const submitRegister = (first_name, last_name, email, password, phone_number, address) => {
+  const submitRegister = (
+    first_name,
+    last_name,
+    email,
+    password,
+    phone_number,
+    address
+  ) => {
     const data = {
       first_name,
       last_name,
@@ -71,7 +91,8 @@ function App() {
     });
   };
 
-  //Update a new account
+  //Update an account (now only for client, need to update to include provider)
+
   const updateUser = (
     id,
     first_name,
@@ -147,7 +168,7 @@ function App() {
       })
       .catch(err => {
         console.log(err);
-      })
+      });
   };
 
   const bookAppointment = (id, appointentDateData) => {
@@ -163,63 +184,109 @@ function App() {
         setPendingAppointmentData({})
         // setClientAppointments({...clientAppointments, response.data})
       });
-  };
+    // to get all appointments from the provider
+    function getProviderAppointments(id) {
+      axios
+        .get(`/api/providers/${id}/appointments`)
+        .then(response => {
+          console.log("response from the get appoint provider", response.data);
+          setProviderAppointments(response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
 
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">main</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/edit-profile">profile</Link>
-            </li>
-            <li>
-              <Link to="/appointments">Appointments</Link>
-            </li>
-            <li>
-              <Link to="/clientHome">Client Home</Link>
-            </li>
-          </ul>
-        </nav>
-        <Switch>
-          <Route path="/login">
-            <Login submitlogin={submitlogin} />
-          </Route>
-          <Route path="/register">
-            <Register submitRegister={submitRegister} />
-          </Route>
-          <Route path="/edit-profile">
-            <Header />
-            <Edit userInformation={userInformation} updateUser={updateUser} />
-          </Route>
-          <Route path="/appointments">
-            <Header />
-            {userType === "client" && (
-              <ClientAppointments clientAppointments={clientAppointments} />
-            )}
-            {userType === "provider" && <ProviderAppointments />}
-          </Route>
-          <Route path="/clientHome">
-            <Header />
-            <ClientHome submitDate={submitDate} />
-            <ProviderList providerListData={providerListData} pendingAppointmentDate={pendingAppointmentDate} bookAppointment={bookAppointment} />
-          </Route>
-          <Route path="/">
-            <Main setUserType={setUserType} />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
-}
+    // create a new appointment (From the provider home page)
+    const createAppointment = (time, duration, date, costPerHour, id) => {
+      const data = {
+        selected_startTime: time,
+        selected_hours: duration,
+        selected_date: date,
+        costPerHour: costPerHour
+      };
+      console.log("Data runned for createAppointment fct", data);
+      axios
+        .post(`/api/providers/${id}/appointments`, data)
+        .then(response => {
+          console.log("response from create an appointment post!", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      getProviderAppointments(id);
+    };
 
-export default App;
+    return (
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">main</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+              <li>
+                <Link to="/edit-profile">profile</Link>
+              </li>
+              <li>
+                <Link to="/appointments">Appointments</Link>
+              </li>
+              <li>
+                <Link to="/clientHome">Client Home</Link>
+              </li>
+              <li>
+                <Link to="/providerHome">Provider Home</Link>
+              </li>
+            </ul>
+          </nav>
+          <Switch>
+            <Route path="/login">
+              <Login submitlogin={submitlogin} />
+            </Route>
+            <Route path="/register">
+              <Register submitRegister={submitRegister} />
+            </Route>
+            <Route path="/edit-profile">
+              <Header />
+              <Edit userInformation={userInformation} updateUser={updateUser} />
+            </Route>
+            <Route path="/appointments">
+              <Header />
+              {userType === "client" && (
+                <ClientAppointments clientAppointments={clientAppointments} />
+              )}
+              {userType === "provider" && (
+                <ProviderAppointments
+                  providerAppointments={providerAppointments}
+                />
+              )}
+            </Route>
+            <Route path="/clientHome">
+              <Header />
+              <ClientHome submitDate={submitDate} />
+              <ProviderList providerListData={providerListData} pendingAppointmentDate={pendingAppointmentDate} bookAppointment={bookAppointment} />
+            </Route>
+            <Route path="/providerHome">
+              <Header />
+              <ProviderHome
+                createAppointment={createAppointment}
+                providerAppointments={providerAppointments}
+                userInformation={userInformation}
+              />
+            </Route>
+            <Route path="/">
+              <Main setUserType={setUserType} />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+
+  export default App;

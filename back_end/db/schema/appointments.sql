@@ -7,7 +7,7 @@ CREATE TABLE appointments
   id SERIAL PRIMARY KEY NOT NULL,
   Date DATE NOT NULL,
   start_time INTEGER NOT NULL,
-  hours INTEGER NOT NULL,
+  hours INTEGER NOT NULL DEFAULT 1,
   booked BOOLEAN DEFAULT false ,
   cost_per_hour numeric(10,2) DEFAULT 15 ,
   comment VARCHAR(255) ,

@@ -6,7 +6,6 @@ import axios from "axios";
 export default function Login(props) {
   console.log(props, "hello");
 
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let history = useHistory();
@@ -45,12 +44,15 @@ export default function Login(props) {
             />
           </div>
 
-          <button type="submit"
+          <button
+            type="submit"
             onClick={() => {
               props.submitlogin(email, password, history);
             }}
-            class="btn btn-primary">Login
-           </button>
+            class="btn btn-primary"
+          >
+            Login
+          </button>
         </div>
       </form>
       <footer>

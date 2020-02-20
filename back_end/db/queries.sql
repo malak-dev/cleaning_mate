@@ -103,3 +103,33 @@ values: [selected_startTime, selected_hours, selectedDate]
       })
       .catch(err => console.error("query error", err.stack));
   });
+
+
+
+
+
+
+
+
+      SELECT b.first_name, b.last_name, view2.rating, view1.cost_per_hour
+      FROM (
+      SELECT a.provider_id,b.name,count(a.hours) as hours, avg(a.cost_per_hour)::numeric(10,2) as cost_per_hour
+      FROM appointments as a
+      join providers as b on a.provider_id = b.id
+      WHERE a.booked = false and a.date = $3 and a.start_time >= $1 and a.start_time <= ($1 + $2)
+      GROUP BY provider_id ) as view1      
+     
+      JOIN (
+        SELECT provider_id, avg(rating)::numeric(10,2) as rating
+        FROM appointments
+        WHERE date <= now() - interval '1 day'
+        GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id
+      WHERE view1.hours >= $2;`,
+
+
+
+
+
+
+   
+
