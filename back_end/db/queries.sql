@@ -4,7 +4,7 @@
 INSERT INTO clients
   (first_name,last_name,phone_number,email,password,address)
 VALUES
-  ('alex', 'falco', '5148350149', 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal');
+  ('alex', 'falco', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal');
 
 
 -- update existing client
@@ -16,7 +16,7 @@ WHERE id = IdToUpdate
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address)
 VALUES
-  ('alex', 'falco4', '5148350149', 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal');
+  ('alex', 'falco4', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal');
 
 -- update existing providers
 UPDATE providers
