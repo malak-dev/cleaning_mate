@@ -2,15 +2,31 @@ const router = require("express").Router();
 
 module.exports = db => {
   // Update an appointment (book , cost_hour, rating, comment)
+  // router.put("/:appointmentId", (req, res) => {
+  //   const appointmentId = req.params.appointmentId;
+  //   const { booked, cost_per_hour, rating, comment } = req.body;
+
+  //   let query = {
+  //     text: `UPDATE appointments SET booked =$1 ,cost_per_hour=$2 , rating=$3 ,comment=$4  WHERE id=$5 ;`,
+  //     values: [booked, cost_per_hour, rating, comment, appointmentId]
+  //   };
+  //   db.query(query).then(dbRes => res.send(201));
+  // });
+
   router.put("/:appointmentId", (req, res) => {
     const appointmentId = req.params.appointmentId;
-    const { booked, cost_per_hour, rating, comment } = req.body;
+    const { rating, comment } = req.body;
 
     let query = {
-      text: `UPDATE appointments SET booked =$1 ,cost_per_hour=$2 , rating=$3 ,comment=$4  WHERE id=$5 ;`,
-      values: [booked, cost_per_hour, rating, comment, appointmentId]
+      text: `UPDATE appointments SET rating=$1 ,comment=$2  WHERE id=$3 ;`,
+      values: [rating, comment, appointmentId]
     };
-    db.query(query).then(dbRes => res.send(201));
+    db.query(query).then(
+
+      dbRes => {
+        console.log(dbRes);
+        res.json(dbRes.rows)
+      });
   });
 
   // delete an appointment -- you can only delete if appointment is not already booked
