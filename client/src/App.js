@@ -30,7 +30,6 @@ function App() {
   const [providerListData, setProviderListData] = useState("");
   const [providerAppointments, setProviderAppointments] = useState("");
 
-
   // send the login information to the backend
 
   const submitlogin = (email, password, history) => {
@@ -38,25 +37,20 @@ function App() {
       email: email,
       password: password
     };
-    axios.post(`/api/${userType}s/login`, data)
+    axios
+      .post(`/api/${userType}s/login`, data)
       .then(response => {
         if (!response.data.error) {
-<<<<<<< HEAD
-
-          setUserInformation(response.data)
-=======
           setUserInformation(response.data);
-<<<<<<< HEAD
+
+          setUserInformation(response.data);
           if (userType === "client") {
             history.replace("/clientHome");
           } else {
             history.replace("/providerHome");
           }
-=======
-
->>>>>>> master
           history.replace("/clientHome");
->>>>>>> master
+          master;
         }
         console.log(response);
       })
@@ -66,7 +60,14 @@ function App() {
   };
 
   //create a new account
-  const submitRegister = (first_name, last_name, email, password, phone_number, address) => {
+  const submitRegister = (
+    first_name,
+    last_name,
+    email,
+    password,
+    phone_number,
+    address
+  ) => {
     const data = {
       first_name,
       last_name,
@@ -81,14 +82,8 @@ function App() {
     });
   };
 
-<<<<<<< HEAD
   //Update an account (now only for client, need to update to include provider)
-=======
-<<<<<<< HEAD
-  const userId = 1;
-=======
-  //Update a new account
->>>>>>> master
+
   const updateUser = (
     id,
     first_name,
@@ -120,11 +115,7 @@ function App() {
   };
 
   const userId = 2;
-<<<<<<< HEAD
 
-=======
->>>>>>> master
->>>>>>> master
   //get all the appointments
   useEffect(() => {
     axios
@@ -156,10 +147,9 @@ function App() {
       })
       .catch(err => {
         console.log(err);
-      })
+      });
   };
 
-<<<<<<< HEAD
   // to get all appointments from the provider
   function getProviderAppointments(id) {
     axios
@@ -192,9 +182,6 @@ function App() {
       });
     getProviderAppointments(id);
   };
-=======
-
->>>>>>> master
 
   return (
     <Router>
