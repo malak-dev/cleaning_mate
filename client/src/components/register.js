@@ -29,6 +29,7 @@ export default function Register(props) {
   const [password, setPassword] = useState("")
   const [address, setAddress] = useState("")
   const [phone_number, setPhone_number] = useState("")
+  
   return (
     <div >
       <h1 > Create a new Account </h1>

@@ -2,29 +2,24 @@ import React from "react";
 import axios from "axios";
 import "./App.css";
 import Login from "./components/Login";
-import Register from "./components/Register"
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Main from './components/Main'
-import Edit from './components/Edit-profile'
-import ProviderAppointments from './components/providers/ProviedAppointments'
-import ClientAppointments from './components/clients/ClientAppointments'
-import Calendar from './components/clients/Calendar'
-import ClientHome from './components/clients/ClientHome'
-import ProviderList from './components/clients/ProviderList'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom"
+import Register from "./components/Register";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Edit from "./components/Edit-profile";
+import ProviderAppointments from "./components/providers/ProviedAppointments";
+import ClientAppointments from "./components/clients/ClientAppointments";
+import Calendar from "./components/clients/Calendar";
+import ClientHome from "./components/clients/ClientHome";
+import ProviderList from "./components/clients/ProviderList";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [userType, setUserType] = useState("client");
-  const [userInformation, setUserInformation] = useState()
+  const [userInformation, setUserInformation] = useState();
   const [clientAppointments, setClientAppointments] = useState("");
-  const [providerListData, setProviderListData] = useState("")
+  const [providerListData, setProviderListData] = useState("");
 
   // const setUserTypeFunction = (type) => {
   //   setUserType(prev => (type);
@@ -39,10 +34,9 @@ function App() {
       .post(`/api/${userType}s/login`, data)
       .then(response => {
         if (!response.data.error) {
-
-          setUserInformation(response.data)
+          setUserInformation(response.data);
         }
-        console.log(response)
+        console.log(response);
       })
       .catch(err => {
         console.log(err);
@@ -74,12 +68,44 @@ function App() {
     });
   };
 
+  //Update a new account
+  const updateUser = (
+    id,
+    first_name,
+    last_name,
+    email,
+    password,
+    phone_number,
+    address
+  ) => {
+    const data = {
+      first_name,
+      last_name,
+      email,
+      password,
+      phone_number,
+      address
+    };
+    axios
+      .put(`/api/clients/${id}`, data)
+      .then(response => {
+        if (!response.data.error) {
+          setUserInformation(response.data);
+        }
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const userId = 2;
   //get all the appointments
   useEffect(() => {
-    axios.get(`/api/clients/${userId}/appointments`)
+    axios
+      .get(`/api/clients/${userId}/appointments`)
       .then(response => {
-        console.log("hi")
+        console.log("hi");
         console.log(response.data);
         setClientAppointments(response.data);
         console.log("hello");
@@ -87,7 +113,7 @@ function App() {
       .catch(err => {
         console.log(err);
       });
-  }, [])
+  }, []);
   // const date = {
   //   date: "2020-03-03"
   // }
@@ -96,19 +122,22 @@ function App() {
   //     console.log("hellllllo", response);
   //     console.log(response)
   //   })
+
   const submitDate = (time, duration, date) => {
     const data = {
       selected_startTime: time,
       selected_hours: duration,
       selectedDate: date
-    }
-    console.log("i am data", data)
-    axios.post('/api/appointments', data)
-      .then((response) => {
-        console.log('i am response', response.data)
-        setProviderListData(response.data)
-      }).catch((err) => {
-        console.log(err)
+    };
+    console.log("i am data", data);
+    axios
+      .post("/api/appointments", data)
+      .then(response => {
+        console.log("i am response", response.data);
+        setProviderListData(response.data);
+      })
+      .catch(err => {
+        console.log(err);
       })
       .catch(err => {
         console.log(err);
@@ -149,7 +178,7 @@ function App() {
           </Route>
           <Route path="/edit-profile">
             <Header />
-            <Edit />
+            <Edit userInformation={userInformation} updateUser={updateUser} />
           </Route>
           <Route path="/appointments">
             <Header />
@@ -160,10 +189,8 @@ function App() {
           </Route>
           <Route path="/clientHome">
             <Header />
-            <ClientHome
-              submitDate={submitDate} />
-            <ProviderList
-              providerListData={providerListData} />
+            <ClientHome submitDate={submitDate} />
+            <ProviderList providerListData={providerListData} />
           </Route>
           <Route path="/">
             <Main setUserType={setUserType} />
