@@ -43,14 +43,11 @@ function App() {
         if (!response.data.error) {
           setUserInformation(response.data);
 
-          setUserInformation(response.data);
           if (userType === "client") {
             history.replace("/clientHome");
           } else {
             history.replace("/providerHome");
           }
-          history.replace("/clientHome");
-          master;
         }
         console.log(response);
       })
