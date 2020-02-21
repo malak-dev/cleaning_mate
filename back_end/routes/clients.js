@@ -12,7 +12,7 @@ module.exports = db => {
       ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating, a.id
       FROM appointments as a
       JOIN providers as b on b.id = a.client_id
-      WHERE a.client_id =$1 
+      WHERE a.client_id = $1 
       ORDER BY date desc, start_time desc;`,
       values: [userId]
     };
@@ -31,14 +31,14 @@ module.exports = db => {
       password,
       first_name,
       last_name,
-      number,
+      phone_number,
       address
     } = req.body;
-
+    console.log(phone_number, "i am number");
     const query = {
       text:
         "INSERT INTO clients(email, password, first_name, last_name, phone_number, address) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6) RETURNING *;",
-      values: [email, password, first_name, last_name, Number(number), address]
+      values: [email, password, first_name, last_name, phone_number, address]
     };
     db.query(query)
       .then(dbRes => res.send(201))

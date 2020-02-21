@@ -24,7 +24,7 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [userType, setUserType] = useState("client");
+  const [userType, setUserType] = useState("");
   const [userInformation, setUserInformation] = useState();
   const [providerListData, setProviderListData] = useState("");
   const [pendingAppointmentDate, setPendingAppointmentData] = useState("");
@@ -50,17 +50,19 @@ function App() {
           );
 
           setUserInformation(response.data);
-          if (userType === "client") {
-            history.replace("/clientHome");
-          } else {
-            history.replace("/providerHome");
-          }
+
+          history.replace("/Home");
         }
         console.log(response);
       })
       .catch(err => {
         console.log(err);
       });
+  };
+
+  const submitLogout = () => {
+    localStorage.removeItem("userInformation");
+    setUserInformation(null);
   };
 
   //create a new account
@@ -70,7 +72,8 @@ function App() {
     email,
     password,
     phone_number,
-    address
+    address,
+    history
   ) => {
     const data = {
       first_name,
@@ -80,8 +83,9 @@ function App() {
       phone_number,
       address
     };
-    axios.post("/api/clients", data).then(response => {
-      console.log("submit login fn");
+    axios.post(`/api/${userType}s`, data).then(response => {
+      history.replace("/login");
+
       console.log(response);
     });
   };
@@ -202,11 +206,11 @@ function App() {
             <Register submitRegister={submitRegister} />
           </Route>
           <Route path="/edit-profile">
-            <Header />
+            <Header submitLogout={submitLogout} />
             <Edit userInformation={userInformation} updateUser={updateUser} />
           </Route>
           <Route path="/appointments">
-            <Header />
+            <Header submitLogout={submitLogout} />
             {userType === "client" && (
               <ClientAppointments userInformation={userInformation} />
             )}
@@ -214,23 +218,23 @@ function App() {
               <ProviderAppointments userInformation={userInformation} />
             )}
           </Route>
-          <Route path="/clientHome">
-            <Header />
-            <ClientHome submitDate={submitDate} />
+          <Route path="/Home">
+            <Header submitLogout={submitLogout} />
+            {userType === "client" && <ClientHome submitDate={submitDate} />}
             <ProviderList
               providerListData={providerListData}
               pendingAppointmentDate={pendingAppointmentDate}
               bookAppointment={bookAppointment}
             />
+            {userType === "provider" && (
+              <ProviderHome
+                createAppointment={createAppointment}
+                providerAppointments={providerAppointments}
+                userInformation={userInformation}
+              />
+            )}
           </Route>
-          <Route path="/providerHome">
-            <Header />
-            <ProviderHome
-              createAppointment={createAppointment}
-              providerAppointments={providerAppointments}
-              userInformation={userInformation}
-            />
-          </Route>
+
           <Route path="/">
             <Main setUserType={setUserType} />
           </Route>

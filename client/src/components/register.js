@@ -1,35 +1,17 @@
 import React, { useState } from 'react';
 import "./login.scss";
+import { Link, useHistory } from "react-router-dom";
+
 export default function Register(props) {
 
-  // const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
-  //   const submitRegister = (first_name, last_name, email, password, phone_number, address) => {
-  //     const data = {
-  //       first_name,
-  //       last_name,
-  //       email,
-  //       password,
-  //       phone_number,
-  //       address
-  //     }
-  //     axios.post('/api/clients', data)
-  //       .then((response) => {
-  //         console.log('submit login fn')
-  //         console.log(response)
-  //       }).catch((err) => {
-  //         console.log(err)
-  //       })
 
-  //   }
-  // }
   const [first_name, setFirst_name] = useState("")
   const [last_name, setLast_name] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [address, setAddress] = useState("")
   const [phone_number, setPhone_number] = useState("")
-
+  let history = useHistory();
   return (
     <div >
       <h1 > Create a new Account </h1>
@@ -87,7 +69,7 @@ export default function Register(props) {
             <input
               class="form-control"
               name="phone_number"
-              type="text"
+              type="tel"
               placeholder="Enter your phone number"
               value={phone_number}
               onChange={(event) => { setPhone_number(event.target.value) }}
@@ -105,7 +87,7 @@ export default function Register(props) {
             />
           </div>
 
-          <button type="submit" onClick={() => { props.submitRegister(first_name, last_name, email, password, phone_number, address) }} class="btn btn-primary">Register</button>
+          <button type="submit" onClick={() => { props.submitRegister(first_name, last_name, email, password, phone_number, address, history) }} class="btn btn-primary">Register</button>
         </div>
       </form >
     </div>
