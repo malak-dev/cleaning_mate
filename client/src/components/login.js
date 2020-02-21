@@ -57,7 +57,11 @@ export default function Login(props) {
       </form>
       <footer>
         <Link to="./Register">
-          <p> Create an Account</p>
+          <p></p>
+          <p></p>
+          <button type="button" class="btn btn-success">
+            Register Here
+          </button>
         </Link>
       </footer>
     </div>

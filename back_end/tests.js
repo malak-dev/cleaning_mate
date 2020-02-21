@@ -10,5 +10,5 @@ const hours = 4;
 const phoneNumber = process.env.phoneNumber;
 const email = process.env.email;
 
-twilioMessage(clientName, date, time, hours, phoneNumber);
 mailGunMessage(clientName, date, time, hours, email);
+twilioMessage(clientName, date, time, hours, phoneNumber);

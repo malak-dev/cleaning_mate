@@ -28,11 +28,9 @@ function App() {
   const [userType, setUserType] = useState("");
   const [userInformation, setUserInformation] = useState();
   const [providerListData, setProviderListData] = useState("");
-  const [pendingAppointmentDate, setPendingAppointmentData] = useState("")
-
+  const [pendingAppointmentDate, setPendingAppointmentData] = useState("");
 
   // send the login information to the backend
-
 
   const [providerAppointments, setProviderAppointments] = useState("");
 
@@ -54,7 +52,6 @@ function App() {
           setUserInformation(response.data);
 
           history.replace("/Home");
-
         }
         console.log(response);
       })
@@ -134,10 +131,6 @@ function App() {
   };
   //get all the appointments
 
-
-
-
-
   useEffect(() => {
     const _userInformation = localStorage.getItem('userInformation')
     setUserInformation(JSON.parse(_userInformation))
@@ -177,7 +170,8 @@ function App() {
       selected_hours: appointentDateData.selected_hours,
       selectedDate: appointentDateData.selectedDate,
       providerId: id,
-      clientId: userInformation.id
+      clientId: userInformation.id,
+      clientName: userInformation.first_name
     };
     console.log(id, "i am id")
     axios.put(`/api/appointments/book/${id}`, data)
@@ -188,8 +182,9 @@ function App() {
         // setClientAppointments({...clientAppointments, response.data})
       });
     // to get all appointments from the provider
-  }
-  function getProviderAppointments(id) {
+  };
+
+  function UpdateProviderAppointments(id) {
     axios
       .get(`/api/providers/${id}/appointments`)
       .then(response => {
@@ -218,19 +213,17 @@ function App() {
       .catch(err => {
         console.log(err);
       });
-    getProviderAppointments(id);
+    UpdateProviderAppointments(id);
   };
 
   return (
     <Router>
       <div>
-
         <Switch>
           <Route path="/login">
             <Login submitlogin={submitlogin} />
           </Route>
           <Route path="/register">
-
             <Register submitRegister={submitRegister} />
           </Route>
           <Route path="/edit-profile">
@@ -243,14 +236,12 @@ function App() {
               <ClientAppointments userInformation={userInformation} />
             )}
             {userType === "provider" && (
-              <ProviderAppointments
-                providerAppointments={providerAppointments}
-              />
+              <ProviderAppointments userInformation={userInformation} />
             )}
           </Route>
           <Route path="/Home">
             <Header submitLogout={submitLogout} />
-            {userType === "client" && (<ClientHome submitDate={submitDate} />)}
+            {userType === "client" && <ClientHome submitDate={submitDate} />}
             <ProviderList
               providerListData={providerListData}
               pendingAppointmentDate={pendingAppointmentDate}

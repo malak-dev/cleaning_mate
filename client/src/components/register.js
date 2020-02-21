@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./login.scss";
 import { Link, useHistory } from "react-router-dom";
 import axios from 'axios'
 require("dotenv").config();
 
 export default function Register(props) {
+<<<<<<< HEAD
 
 
   const [first_name, setFirst_name] = useState("")
@@ -15,6 +16,14 @@ export default function Register(props) {
   const [phone_number, setPhone_number] = useState("")
   const [lon, setLon] = useState("")
   const [lat, setLat] = useState("")
+=======
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+>>>>>>> master
   let history = useHistory();
 
   const token = process.env.TOKEN;
@@ -49,30 +58,44 @@ export default function Register(props) {
 
   }
   return (
+<<<<<<< HEAD
     < div >
       <h1 > Create a new Account </h1>
       <form autoComplete="off" onSubmit={event => event.preventDefault()} className="form_elements">
+=======
+    <div>
+      <h1> Create a new Account </h1>
+      <form
+        autoComplete="off"
+        onSubmit={event => event.preventDefault()}
+        className="form_elements"
+      >
+>>>>>>> master
         <div className="form_elements" class="edit">
           <div class="form-group">
-            <label >First Name</label>
+            <label>First Name</label>
             <input
               class="form-control"
               name="first_name"
               type="text"
               placeholder="Enter your first name"
               value={first_name}
-              onChange={(event) => { setFirst_name(event.target.value) }}
+              onChange={event => {
+                setFirst_name(event.target.value);
+              }}
             />
           </div>
           <div class="form-group">
-            <label >Last Name</label>
+            <label>Last Name</label>
             <input
               class="form-control"
               name="last_name"
               type="text"
               placeholder="Enter your last name"
               value={last_name}
-              onChange={(event) => { setLast_name(event.target.value) }}
+              onChange={event => {
+                setLast_name(event.target.value);
+              }}
             />
           </div>
           <div class="form-group">
@@ -85,7 +108,9 @@ export default function Register(props) {
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(event) => { setEmail(event.target.value) }}
+              onChange={event => {
+                setEmail(event.target.value);
+              }}
             />
           </div>
           <div class="form-group">
@@ -96,38 +121,66 @@ export default function Register(props) {
               type="text"
               placeholder="Enter your password"
               value={password}
-              onChange={(event) => { setPassword(event.target.value) }}
+              onChange={event => {
+                setPassword(event.target.value);
+              }}
             />
           </div>
 
           <div class="form-group">
-            <label >Phone Number</label>
+            <label>Phone Number</label>
             <input
               class="form-control"
               name="phone_number"
               type="tel"
               placeholder="Enter your phone number"
               value={phone_number}
-              onChange={(event) => { setPhone_number(event.target.value) }}
+              onChange={event => {
+                setPhone_number(event.target.value);
+              }}
             />
           </div>
           <div class="form-group">
-            <label >Address</label>
+            <label>Address</label>
             <input
               class="form-control"
               name="address"
               type="text"
               placeholder="Enter your home address"
               value={address}
-              onChange={(event) => { setAddress(event.target.value) }}
+              onChange={event => {
+                setAddress(event.target.value);
+              }}
             />
           </div>
 
+<<<<<<< HEAD
           <button type="submit" onClick={handleClick} class="btn btn-primary">Register</button>
         </div>
       </form >
     </div >
   )
+=======
+          <button
+            type="submit"
+            onClick={() => {
+              props.submitRegister(
+                first_name,
+                last_name,
+                email,
+                password,
+                phone_number,
+                address,
+                history
+              );
+            }}
+            class="btn btn-primary"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+>>>>>>> master
 }
-
-

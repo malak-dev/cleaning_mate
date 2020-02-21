@@ -24,6 +24,5 @@ export default function ProviderList(props) {
         ))
       }
     </div>
-
-  )
+  );
 }
