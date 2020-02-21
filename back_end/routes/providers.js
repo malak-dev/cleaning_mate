@@ -4,12 +4,19 @@ module.exports = db => {
   // Get all appointment for selected provider
   router.get("/:userId/appointments", (req, res) => {
     const userId = req.params.userId;
-    console.log(userId);
+
     const query = {
-      text: `SELECT a.date,a.start_time, b.first_name,  
+      text: `SELECT a.date as date ,a.start_time as start_time, b.first_name as first_name,  
            CASE
-           WHEN date > now() THEN 'Upcoming'
-           ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating, a.id
+           WHEN date > now() THEN 'Upcoming' 
+           WHEN booked = true THEN 'Completed'
+           ELSE '' END AS status,
+           
+           CASE
+           WHEN booked = true THEN 'Booked' 
+           WHEN  date > now() THEN 'Available' ELSE '' END AS booked,
+
+            a.cost_per_hour as cost_per_hour, a.comment as comment, a.rating as rating, a.id as id
            FROM appointments as a
            LEFT JOIN clients as b on b.id = a.client_id
            WHERE a.provider_id =$1
@@ -18,7 +25,6 @@ module.exports = db => {
     };
     db.query(query)
       .then(resDb => {
-        console.log(resDb.rows);
         res.json(resDb.rows);
       })
       .catch(err => console.error("query error", err.stack));
@@ -26,7 +32,6 @@ module.exports = db => {
 
   // Insert New appointments for a specific provider
   router.post("/:userId/appointments", (req, res) => {
-    console.log(req.body);
     const userId = req.params.userId;
     const {
       selected_date,

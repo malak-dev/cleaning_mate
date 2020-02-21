@@ -1,8 +1,6 @@
-import React from 'react'
+import React from "react";
 import "./Header.scss";
-import { Link } from 'react-router-dom';
-
-
+import { Link } from "react-router-dom";
 
 export default function Header(props) {
   return (
@@ -33,6 +31,5 @@ export default function Header(props) {
         </ul>
       </nav>
     </header>
-  )
-
+  );
 }

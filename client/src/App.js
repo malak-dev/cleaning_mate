@@ -27,11 +27,9 @@ function App() {
   const [userType, setUserType] = useState("client");
   const [userInformation, setUserInformation] = useState();
   const [providerListData, setProviderListData] = useState("");
-  const [pendingAppointmentDate, setPendingAppointmentData] = useState("")
-
+  const [pendingAppointmentDate, setPendingAppointmentData] = useState("");
 
   // send the login information to the backend
-
 
   const [providerAppointments, setProviderAppointments] = useState("");
 
@@ -46,8 +44,10 @@ function App() {
       .post(`/api/${userType}s/login`, data)
       .then(response => {
         if (!response.data.error) {
-
-          localStorage.setItem('userInformation', JSON.stringify(response.data))
+          localStorage.setItem(
+            "userInformation",
+            JSON.stringify(response.data)
+          );
 
           setUserInformation(response.data);
           if (userType === "client") {
@@ -119,19 +119,10 @@ function App() {
   };
   //get all the appointments
 
-
-
-
-
   useEffect(() => {
-    const _userInformation = localStorage.getItem('userInformation')
-    setUserInformation(JSON.parse(_userInformation))
-
-  }, [])
-
-
-
-
+    const _userInformation = localStorage.getItem("userInformation");
+    setUserInformation(JSON.parse(_userInformation));
+  }, []);
 
   // submit date ,time and duration and get all the available appointments
   const submitDate = (time, duration, date) => {
@@ -160,15 +151,15 @@ function App() {
       providerId: id,
       clientId: userInformation.id
     };
-    console.log(id, "i am id")
-    axios.put(`/api/appointments/book/${id}`, data)
-      .then(response => {
-        setPendingAppointmentData({})
-        // setClientAppointments({...clientAppointments, response.data})
-      });
+    console.log(id, "i am id");
+    axios.put(`/api/appointments/book/${id}`, data).then(response => {
+      setPendingAppointmentData({});
+      // setClientAppointments({...clientAppointments, response.data})
+    });
     // to get all appointments from the provider
-  }
-  function getProviderAppointments(id) {
+  };
+
+  function UpdateProviderAppointments(id) {
     axios
       .get(`/api/providers/${id}/appointments`)
       .then(response => {
@@ -197,13 +188,12 @@ function App() {
       .catch(err => {
         console.log(err);
       });
-    getProviderAppointments(id);
+    UpdateProviderAppointments(id);
   };
 
   return (
     <Router>
       <div>
-
         <Switch>
           <Route path="/login">
             <Login submitlogin={submitlogin} />
@@ -221,15 +211,17 @@ function App() {
               <ClientAppointments userInformation={userInformation} />
             )}
             {userType === "provider" && (
-              <ProviderAppointments
-                providerAppointments={providerAppointments}
-              />
+              <ProviderAppointments userInformation={userInformation} />
             )}
           </Route>
           <Route path="/clientHome">
             <Header />
             <ClientHome submitDate={submitDate} />
-            <ProviderList providerListData={providerListData} pendingAppointmentDate={pendingAppointmentDate} bookAppointment={bookAppointment} />
+            <ProviderList
+              providerListData={providerListData}
+              pendingAppointmentDate={pendingAppointmentDate}
+              bookAppointment={bookAppointment}
+            />
           </Route>
           <Route path="/providerHome">
             <Header />
