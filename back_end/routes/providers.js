@@ -58,16 +58,18 @@ module.exports = db => {
       password,
       first_name,
       last_name,
-      number,
+      phone_number,
       address
     } = req.body;
-
-    let query = {
+    console.log(phone_number, "i am number");
+    const query = {
       text:
         "INSERT INTO providers(email, password, first_name, last_name, phone_number, address) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6) RETURNING *;",
-      values: [email, password, first_name, last_name, Number(number), address]
+      values: [email, password, first_name, last_name, phone_number, address]
     };
-    db.query(query).then(dbRes => res.send(201));
+    db.query(query)
+      .then(dbRes => res.send(201))
+      .catch(err => console.log(err));
   });
 
   //Update existing provider

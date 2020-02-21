@@ -31,11 +31,11 @@ module.exports = db => {
   // book an appointment
   router.put("/book/:providerId", (req, res) => {
     const providerId = req.params.providerId;
-    const { selected_startTime, selected_hours, selectedDate } = req.body;
+    const { selected_startTime, selected_hours, selectedDate, clientId } = req.body;
     console.log("/api/appointments/book/:providerId", req.body, req.params.providerId)
     let query = {
-      text: `UPDATE appointments SET booked = true  WHERE start_time = $1 and hours = $2 and date = $3 and provider_id = $4 RETURNING *;`,
-      values: [Number(selected_startTime), Number(selected_hours), selectedDate, providerId]
+      text: `UPDATE appointments SET booked = true, client_id = $5  WHERE start_time = $1 and hours = $2 and date = $3 and provider_id = $4 RETURNING *;`,
+      values: [Number(selected_startTime), Number(selected_hours), selectedDate, providerId, clientId]
     };
     db.query(query).then(
 
