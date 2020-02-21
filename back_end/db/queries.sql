@@ -77,8 +77,3 @@ WHERE a.provider_id = ID_selected
 
 
 
-
-
-
-
-

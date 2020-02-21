@@ -10,7 +10,6 @@ export default function ProviderAppointments(props) {
   const [providerAppointments, setProviderAppointments] = useState([]);
 
   function getProviderAppointments(id) {
-    console.log("get provider ID", id);
     axios
       .get(`/api/providers/${id}/appointments`)
       .then(response => {
@@ -20,22 +19,6 @@ export default function ProviderAppointments(props) {
         console.log(err);
       });
   }
-
-  // function updateCostPerHour(appointmentId, costPerHour) {
-  //   data = {
-  //     costPerHour: costPerHour
-  //   };
-  //   console.log("update cost per hour of appointment", id);
-  //   axios
-  //     .put(`/api/appointments/${appointmentId}/costPerHour`, data)
-  //     .then(response => {
-  //       console.log(response.data);
-  //       getProviderAppointments(userInformation.id);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
 
   function cancelAppointment(appointmentId) {
     axios

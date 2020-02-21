@@ -122,5 +122,29 @@ module.exports = db => {
       .catch(err => console.log(err));
   });
 
+  // Get all appointment for selected provider for a specific day
+  router.get("/:userId/appointments/day", (req, res) => {
+    const userId = req.params.userId;
+    const { selected_date } = req.body;
+
+    const query = {
+      text: `
+      SELECT a.hour, 
+CASE WHEN b.booked = 't' THEN 'Booked'
+WHEN  b.booked = 'f' THEN 'Available'
+ELSE 'Empty' end as day_schedule
+FROM day as a
+LEFT JOIN (SELECT start_time, booked FROM appointments 
+WHERE provider_id =$1 and date = $2) as b on a.hour = b.start_time
+;`,
+      values: [userId, selected_date]
+    };
+    db.query(query)
+      .then(resDb => {
+        res.json(resDb.rows);
+      })
+      .catch(err => console.error("query error", err.stack));
+  });
+
   return router;
 };

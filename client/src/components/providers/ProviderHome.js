@@ -8,7 +8,17 @@ export default function ProviderHome(props) {
   const [duration, setDuration] = useState(1);
   const [costPerHour, setCostPerHour] = useState(15);
 
-  console.log(props.providerAppointments);
+  // function getDayAppointments(id) {
+  //   axios
+  //     .get(`/api/providers/${id}/appointments/day`)
+  //     .then(response => {
+  //       setProviderAppointments(response.data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
+
   return (
     <div>
       <p>Manage your Availabilities </p>
