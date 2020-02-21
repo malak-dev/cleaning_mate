@@ -1,11 +1,38 @@
+$darkblue : #0b89b3;
+$paleblue : #4CD3FF;
+$mainorange: #ffa042;
+$paleorange: #FFAF5C;
+
+
 .list-container {
 
-  background-color:powderblue;
+  background-color:$darkblue;
 
-  .list-item {
-      display: inline-block;
-      margin: 30px; 
+
+  ul{
+    display: flex;
+    align-items: center;;
+    .list-item {
+        display: inline-block;
+        margin: 20px; 
+      
+      a{
+        color:$mainorange;
+      }
+    }
+  }
+
+
+  svg{
+    height:50px;
+    margin-bottom:0.5em;
+    margin-right:auto;
     
-    
+    .cls-1 {
+      fill: transparent;
+  }
+    path:not(.cls-1) {
+        fill: $mainorange;
+    }
   }
 }

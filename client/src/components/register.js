@@ -5,7 +5,6 @@ import axios from 'axios'
 require("dotenv").config();
 
 export default function Register(props) {
-<<<<<<< HEAD
 
 
   const [first_name, setFirst_name] = useState("")
@@ -16,14 +15,6 @@ export default function Register(props) {
   const [phone_number, setPhone_number] = useState("")
   const [lon, setLon] = useState("")
   const [lat, setLat] = useState("")
-=======
-  const [first_name, setFirst_name] = useState("");
-  const [last_name, setLast_name] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone_number, setPhone_number] = useState("");
->>>>>>> master
   let history = useHistory();
 
   const token = process.env.TOKEN;
@@ -58,11 +49,6 @@ export default function Register(props) {
 
   }
   return (
-<<<<<<< HEAD
-    < div >
-      <h1 > Create a new Account </h1>
-      <form autoComplete="off" onSubmit={event => event.preventDefault()} className="form_elements">
-=======
     <div>
       <h1> Create a new Account </h1>
       <form
@@ -70,7 +56,6 @@ export default function Register(props) {
         onSubmit={event => event.preventDefault()}
         className="form_elements"
       >
->>>>>>> master
         <div className="form_elements" class="edit">
           <div class="form-group">
             <label>First Name</label>
@@ -154,33 +139,9 @@ export default function Register(props) {
             />
           </div>
 
-<<<<<<< HEAD
           <button type="submit" onClick={handleClick} class="btn btn-primary">Register</button>
         </div>
       </form >
     </div >
   )
-=======
-          <button
-            type="submit"
-            onClick={() => {
-              props.submitRegister(
-                first_name,
-                last_name,
-                email,
-                password,
-                phone_number,
-                address,
-                history
-              );
-            }}
-            class="btn btn-primary"
-          >
-            Register
-          </button>
-        </div>
-      </form>
-    </div>
-  );
->>>>>>> master
 }

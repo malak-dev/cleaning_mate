@@ -6,6 +6,7 @@ import './providerList.scss'
 import { Link, useHistory } from 'react-router-dom';
 
 
+
 export default function ProviderList(props) {
   const history = useHistory()
   const providerListData = props.providerListData || [];

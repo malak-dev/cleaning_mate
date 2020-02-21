@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import "./App.css";
+import "./App.scss";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,6 +15,8 @@ import ClientHome from "./components/clients/ClientHome";
 import ProviderHome from "./components/providers/ProviderHome";
 import ProviderList from "./components/clients/ProviderList";
 import Map1 from './components/clients/Map'
+import { ReactComponent as SpongeLogo } from "./Sponge.svg";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -218,7 +220,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div class="Application">
         <Switch>
           <Route path="/login">
             <Login submitlogin={submitlogin} />
@@ -241,7 +243,10 @@ function App() {
           </Route>
           <Route path="/Home">
             <Header submitLogout={submitLogout} />
-            {userType === "client" && <ClientHome submitDate={submitDate} />}
+
+            {userType === "client" && <ClientHome submitDate={submitDate} providerListData={providerListData}
+              pendingAppointmentDate={pendingAppointmentDate}
+              bookAppointment={bookAppointment} />}
             <ProviderList
               providerListData={providerListData}
               pendingAppointmentDate={pendingAppointmentDate}
