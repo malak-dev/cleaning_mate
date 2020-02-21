@@ -1,4 +1,7 @@
 const router = require("express").Router();
+require("dotenv").config();
+const { twilioMessage } = require("../send_sms.js");
+const { mailGunMessage } = require("../send_email.js");
 
 module.exports = db => {
   //upadate appointment with comment and rating
@@ -21,7 +24,8 @@ module.exports = db => {
       selected_startTime,
       selected_hours,
       selectedDate,
-      clientId
+      clientId,
+      clientName
     } = req.body;
     console.log(
       "/api/appointments/book/:providerId",
@@ -39,7 +43,20 @@ module.exports = db => {
       ]
     };
     db.query(query).then(dbRes => {
-      console.log("i am boook", dbRes.rows);
+      mailGunMessage(
+        clientName,
+        selectedDate,
+        selected_startTime,
+        selected_hours,
+        "afalconer@protonmail.com"
+      );
+      twilioMessage(
+        clientName,
+        selectedDate,
+        selected_startTime,
+        selected_hours,
+        "5148350149"
+      );
       res.json(dbRes.rows);
     });
   });
@@ -71,6 +88,7 @@ module.exports = db => {
   });
 
   // get all appointments ( for a specific day and between a start date and end date)
+
   // router.post("/", (req, res) => {
   //   const { selected_startTime, selected_hours, selectedDate } = req.body;
   //   console.log("i am body", req.body);
@@ -104,19 +122,23 @@ module.exports = db => {
     const query = {
       text: `
       SELECT *
+      
       FROM (
       SELECT provider_id,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
       FROM appointments
       WHERE booked = false and date = $3 and start_time >= $1 and start_time <= ($1 + $2)
       GROUP BY provider_id ) as view1
       JOIN providers as b on view1.provider_id = b.id
-      JOIN (
+     
+      LEFT JOIN (
         SELECT provider_id, avg(rating)::numeric(10,2) as rating
         FROM appointments
         WHERE date <= now() - interval '1 day'
         GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id
-      WHERE view1.hours >= $2;`,
-      values: [selected_startTime, selected_hours, selectedDate]
+      
+        WHERE view1.hours >= $2;`,
+
+      values: [Number(selected_startTime), Number(selected_hours), selectedDate]
     };
     db.query(query)
       .then(resDb => {

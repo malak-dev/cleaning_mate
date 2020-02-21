@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
 import "./ClientAppointments.scss";
-import Comment from './Comment'
-import axios from 'axios'
-
-
+import Comment from "./Comment";
+import axios from "axios";
+import Moment from "react-moment";
 
 export default function ClientAppointments(props) {
-  const [rating, setRating] = useState(0)
-  const { userInformation } = props
+  const [rating, setRating] = useState(0);
+  const { userInformation } = props;
   const [clientAppointments, setClientAppointments] = useState([]);
-
 
   function getClientAppointments(id) {
     axios
@@ -26,9 +24,8 @@ export default function ClientAppointments(props) {
 
   useEffect(() => {
     if (userInformation) {
-      getClientAppointments(userInformation.id)
+      getClientAppointments(userInformation.id);
     }
-
   }, []);
   return (
     <table className="table table-hover">
@@ -43,18 +40,28 @@ export default function ClientAppointments(props) {
       </thead>
       <tbody>
         {clientAppointments.map(data => (
-
           <tr key={data.id}>
-            <td >{data.date}</td>
+            <Moment format="YYYY/MM/DD">{data.date}</Moment>
             <td>{data.first_name}</td>
             <td>{data.status}</td>
-            {data.status === "Completed" &&
-              (<td><Rater total={5} rating={data.rating || rating}
-                onRate={({ rating }) => { setRating(rating) }} /></td>)}
+            {data.status === "Completed" && (
+              <td>
+                <Rater
+                  total={5}
+                  rating={data.rating || rating}
+                  onRate={({ rating }) => {
+                    setRating(rating);
+                  }}
+                />
+              </td>
+            )}
             {data.status === "Upcoming" && <td> </td>}
             {data.comment && <td>{data.comment}</td>}
-            {data.status === "Completed" && (!data.comment && <td><Comment rating={rating}
-              id={data.id} /></td>)}
+            {data.status === "Completed" && !data.comment && (
+              <td>
+                <Comment rating={rating} id={data.id} />
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

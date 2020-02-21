@@ -153,7 +153,8 @@ function App() {
       selected_hours: appointentDateData.selected_hours,
       selectedDate: appointentDateData.selectedDate,
       providerId: id,
-      clientId: userInformation.id
+      clientId: userInformation.id,
+      clientName: userInformation.first_name
     };
     console.log(id, "i am id");
     axios.put(`/api/appointments/book/${id}`, data).then(response => {

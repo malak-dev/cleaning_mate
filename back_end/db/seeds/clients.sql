@@ -8,7 +8,7 @@ VALUES
 INSERT INTO clients
   (first_name,last_name,phone_number,email,password,address)
 VALUES
-  ('alex', 'falco', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal');
+  ('Client 2', 'Last Name Client 2', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal');
 
 
 

@@ -3,6 +3,7 @@ import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
 import "./ProviderAppointments.scss";
 import axios from "axios";
+import Moment from "react-moment";
 
 export default function ProviderAppointments(props) {
   const { userInformation } = props;
@@ -68,13 +69,15 @@ export default function ProviderAppointments(props) {
           <th scope="col">Booked</th>
           <th scope="col">Rating</th>
           <th scope="col">Comments</th>
-          <th scope="col">Cancel</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         {providerAppointments.map(data => (
           <tr key={data.id}>
-            <td>{data.date}</td>
+            <td>
+              <Moment format="YYYY/MM/DD">{data.date}</Moment>
+            </td>
             <td>{data.start_time}</td>
             <td>{data.first_name}</td>
             <td>{data.cost_per_hour}</td>
@@ -87,13 +90,15 @@ export default function ProviderAppointments(props) {
             </td>
             <td>{data.comment}</td>
             <td>
-              <button
-                type="submit"
-                onClick={() => cancelAppointment(data.id)}
-                class="btn btn-primary"
-              >
-                cancel
-              </button>
+              {data.booked === "Available" && (
+                <button
+                  type="submit"
+                  onClick={() => cancelAppointment(data.id)}
+                  class="btn btn-warning"
+                >
+                  cancel
+                </button>
+              )}
             </td>
           </tr>
         ))}
