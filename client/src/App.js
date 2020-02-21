@@ -14,6 +14,7 @@ import Calendar from "./components/clients/Calendar";
 import ClientHome from "./components/clients/ClientHome";
 import ProviderHome from "./components/providers/ProviderHome";
 import ProviderList from "./components/clients/ProviderList";
+import Map1 from './components/clients/Map'
 import {
   BrowserRouter as Router,
   Switch,
@@ -48,6 +49,7 @@ function App() {
         if (!response.data.error) {
 
           localStorage.setItem('userInformation', JSON.stringify(response.data))
+          localStorage.setItem('userType', JSON.stringify(userType))
 
           setUserInformation(response.data);
 
@@ -63,7 +65,10 @@ function App() {
 
   const submitLogout = () => {
     localStorage.removeItem('userInformation');
+    localStorage.removeItem('userType');
+
     setUserInformation(null);
+    setUserType("")
 
   }
 
@@ -75,6 +80,8 @@ function App() {
     password,
     phone_number,
     address,
+    lat,
+    lon,
     history
   ) => {
     const data = {
@@ -83,7 +90,9 @@ function App() {
       email,
       password,
       phone_number,
-      address
+      address,
+      lat,
+      lon
     };
     axios.post(`/api/${userType}s`, data).then(response => {
       history.replace("/login");
@@ -133,6 +142,10 @@ function App() {
     const _userInformation = localStorage.getItem('userInformation')
     setUserInformation(JSON.parse(_userInformation))
 
+    const _userType = localStorage.getItem('userType')
+    setUserType(JSON.parse(_userType))
+
+
   }, [])
 
 
@@ -158,7 +171,7 @@ function App() {
       });
   };
 
-  const bookAppointment = (id, appointentDateData) => {
+  const bookAppointment = (id, appointentDateData, history) => {
     const data = {
       selected_startTime: appointentDateData.selected_startTime,
       selected_hours: appointentDateData.selected_hours,
@@ -170,6 +183,8 @@ function App() {
     axios.put(`/api/appointments/book/${id}`, data)
       .then(response => {
         setPendingAppointmentData({})
+        history.replace("/appointments");
+
         // setClientAppointments({...clientAppointments, response.data})
       });
     // to get all appointments from the provider
@@ -240,6 +255,7 @@ function App() {
               providerListData={providerListData}
               pendingAppointmentDate={pendingAppointmentDate}
               bookAppointment={bookAppointment} />
+
             {userType === "provider" && (
               <ProviderHome
                 createAppointment={createAppointment}
@@ -248,10 +264,15 @@ function App() {
               />
             )}
           </Route>
-
+          <Route path="/map">
+            <Map1 providerListData={providerListData}
+              pendingAppointmentDate={pendingAppointmentDate}
+              bookAppointment={bookAppointment} />
+          </Route>
           <Route path="/">
             <Main setUserType={setUserType} />
           </Route>
+
         </Switch>
       </div>
     </Router>

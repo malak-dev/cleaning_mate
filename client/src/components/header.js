@@ -16,7 +16,8 @@ export default function Header(props) {
           <li className="list-item"><Link to="/edit-profile">profile</Link></li>
           <li className="list-item"><Link to="/appointments">Appointments</Link></li>
           <li className="list-item"><Link to="/Home">Home</Link></li>
-          <li className="list-item" onClick={() => props.submitLogout()}><Link to="/login">logout</Link></li>
+          <li className="list-item" onClick={() => props.submitLogout()}><Link to="/main">logout</Link></li>
+          <li className="list-item"><Link to="/map">Map</Link></li>
 
         </ul>
       </nav>
