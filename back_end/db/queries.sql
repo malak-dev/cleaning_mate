@@ -58,22 +58,27 @@ WHERE a.provider_id = ID_selected
      -- 3. filter to keep providers when the number in #2 is >= the hours selected by the customer
      -- 4. return the available providers and theirs ratings
 
+  
+
+
+
    SELECT *
       
       FROM (
-      SELECT provider_id,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
-      FROM appointments
-      WHERE booked = false and date = '$DATE' and start_time >= '$START_TIME' and start_time <= ('$START_TIME' + '$HOURS')
-      GROUP BY provider_id ) as view1
-      JOIN providers as b on view1.provider_id = b.id
-     
+      SELECT a.provider_id as provider_id,b.first_name,count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
+      FROM appointments as a
+      JOIN providers as b on a.provider_id = b.id
+      WHERE booked = false and date = '2020-02-27' and start_time >= 10 and start_time <= 12
+      GROUP BY a.provider_id,b.first_name ) as view1
       LEFT JOIN (
-        SELECT provider_id, avg(rating)::numeric(10,2) as rating
+        SELECT avg(rating)::numeric(10,2) as rating
         FROM appointments
         WHERE date <= now() - interval '1 day'
         GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id
       
-        WHERE view1.hours >= '$HOURS';
+        WHERE view1.hours >= 1;
 
 
 
+
+  
