@@ -1,14 +1,33 @@
-
-.containers
-{
+.containers {
   margin-top: 10%;
   width: 55%;
-  height:200px;
+  height: 200px;
   margin: 0 auto;
 }
 // edit_profile style
-.edit
-{
+.edit {
   width: 35%;
   margin-left: 10px;
+}
+
+.logo-login {
+  svg {
+    height: 10vh;
+    min-height: 100px;
+    margin-bottom: 0.5em;
+
+    .cls-1 {
+      fill: transparent;
+    }
+    path:not(.cls-1) {
+      fill: #ffa142;
+    }
+  }
+  h1 {
+    font-size: 1.4em;
+    margin-bottom: 0;
+  }
+  h2 {
+    font-size: 0.8em;
+  }
 }

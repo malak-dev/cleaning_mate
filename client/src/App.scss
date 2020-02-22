@@ -1,0 +1,71 @@
+$darkblue: #0b89b3;
+$paleblue: #4cd3ff;
+$mainorange: #ffa042;
+$paleorange: #ffaf5c;
+
+#root {
+  background-color: $paleblue;
+  min-height: 100vh;
+}
+
+.logo-with-title {
+  svg {
+    height: 20vh;
+    min-height: 200px;
+    margin-bottom: 0.5em;
+
+    .cls-1 {
+      fill: transparent;
+    }
+    path:not(.cls-1) {
+      fill: #ffa142;
+    }
+  }
+  h1 {
+    font-size: 1.4em;
+    margin-bottom: 0;
+  }
+  h2 {
+    font-size: 0.8em;
+  }
+}
+
+.react-calendar {
+  border: 5px solid $paleorange !important;
+}
+
+.clientHome {
+  text-align: center;
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  main > div {
+    width: 45%;
+    margin: 0;
+  }
+  main > section {
+    width: 45%;
+    margin: 0;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      padding: 0.5em;
+      padding-left: 0;
+      margin: 0;
+
+      input {
+        background: white;
+        border: 5px solid $paleorange !important;
+        width: 100%;
+      }
+    }
+  }
+}
+.leaflet-container {
+  min-height: 450px;
+  align-self: stretch;
+  width: 100%;
+}

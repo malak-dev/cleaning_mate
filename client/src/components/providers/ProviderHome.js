@@ -30,94 +30,97 @@ export default function ProviderHome(props) {
     if (props.userInformation.id) {
       getDayAppointments(props.userInformation.id);
     }
-  }, [date]);
+  }, [date, props.createAppointment]);
 
   return (
-    <div>
+    <div className="clientHome">
       <p>Manage your Schedule </p>
+      <main>
+        <section>
+          <div>
+            <ReactCalendar
+              onChange={date => {
+                setDate(date);
+              }}
+              value={date}
+            />
+          </div>
+          <div class="form-group">
+            <label>
+              start time
+              <input
+                class="form-control"
+                name="start-time"
+                type="text"
+                value={time}
+                onChange={event => {
+                  setTime(event.target.value);
+                }}
+              />
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              Duration
+              <input
+                class="form-control"
+                name="start-time"
+                type="number"
+                value={duration}
+                onChange={event => {
+                  setDuration(event.target.value);
+                }}
+              />
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              $/hour
+              <input
+                class="form-control"
+                name="cost_per_hour"
+                type="number"
+                value={costPerHour}
+                onChange={event => {
+                  setCostPerHour(event.target.value);
+                }}
+              />
+            </label>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            onClick={() => {
+              props.createAppointment(
+                time,
+                duration,
+                date,
+                costPerHour,
+                props.userInformation.id
+              );
+            }}
+          >
+            Add Availabilities
+          </button>
+        </section>
 
-      <div>
-        <ReactCalendar
-          onChange={date => {
-            setDate(date);
-          }}
-          value={date}
-        />
-      </div>
-      <div class="form-group">
-        <label>
-          start time
-          <input
-            class="form-control"
-            name="start-time"
-            type="text"
-            value={time}
-            onChange={event => {
-              setTime(event.target.value);
-            }}
-          />
-        </label>
-      </div>
-      <div class="form-group">
-        <label>
-          Duration
-          <input
-            class="form-control"
-            name="start-time"
-            type="number"
-            value={duration}
-            onChange={event => {
-              setDuration(event.target.value);
-            }}
-          />
-        </label>
-      </div>
-      <div class="form-group">
-        <label>
-          $/hour
-          <input
-            class="form-control"
-            name="cost_per_hour"
-            type="number"
-            value={costPerHour}
-            onChange={event => {
-              setCostPerHour(event.target.value);
-            }}
-          />
-        </label>
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        onClick={() => {
-          props.createAppointment(
-            time,
-            duration,
-            date,
-            costPerHour,
-            props.userInformation.id
-          );
-        }}
-      >
-        Add Availabilities
-      </button>
-
-      <table className="table table-hover">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Hour</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {day_appointments.map(data => (
-            <tr key={data.hour}>
-              <td>{data.hour}</td>
-              <td>{data.day_schedule}</td>
+        <table className="table table-hover">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">Hour</th>
+              <th scope="col">Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {day_appointments.map(data => (
+              <tr key={data.hour}>
+                <td>{data.hour}</td>
+                <td>{data.day_schedule}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
     </div>
   );
 }

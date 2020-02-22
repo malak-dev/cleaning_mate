@@ -64,13 +64,15 @@ module.exports = db => {
       first_name,
       last_name,
       phone_number,
-      address
+      address,
+      lat,
+      lon
     } = req.body;
     console.log(phone_number, "i am number");
     const query = {
       text:
-        "INSERT INTO providers(email, password, first_name, last_name, phone_number, address) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6) RETURNING *;",
-      values: [email, password, first_name, last_name, phone_number, address]
+        "INSERT INTO providers(email, password, first_name, last_name, phone_number, address,lat,lon) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6,$7,$8) RETURNING *;",
+      values: [email, password, first_name, last_name, phone_number, address, lat, lon]
     };
     db.query(query)
       .then(dbRes => res.send(201))

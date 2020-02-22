@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./login.scss";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+require("dotenv").config();
 
 export default function Register(props) {
   const [first_name, setFirst_name] = useState("");
@@ -9,7 +11,49 @@ export default function Register(props) {
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [phone_number, setPhone_number] = useState("");
+  const [lon, setLon] = useState("");
+  const [lat, setLat] = useState("");
   let history = useHistory();
+
+  const token = process.env.TOKEN;
+
+  const findLatLong = address => {
+    return axios
+      .get(
+        `https://us1.locationiq.com/v1/search.php?key=009b968466b426&q=${address}&format=json`
+      )
+      .then(response => {
+        console.log(response.data[0], "ia respons api");
+
+        return response.data[0];
+      })
+      .then(response => {
+        const { lat, lon } = response;
+        return [lat, lon];
+      });
+  };
+
+  const handleClick = event => {
+    let encodeAddress = encodeURI(address);
+    findLatLong(encodeAddress).then(response => {
+      console.log(response, "i am response from find");
+      let lat = response[0];
+      let lon = response[1];
+      console.log(lat, lon);
+      props.submitRegister(
+        first_name,
+        last_name,
+        email,
+        password,
+        phone_number,
+        address,
+        lat,
+        lon,
+        history
+      );
+      console.log("hello");
+    });
+  };
   return (
     <div>
       <h1> Create a new Account </h1>
@@ -101,21 +145,7 @@ export default function Register(props) {
             />
           </div>
 
-          <button
-            type="submit"
-            onClick={() => {
-              props.submitRegister(
-                first_name,
-                last_name,
-                email,
-                password,
-                phone_number,
-                address,
-                history
-              );
-            }}
-            class="btn btn-primary"
-          >
+          <button type="submit" onClick={handleClick} class="btn btn-primary">
             Register
           </button>
         </div>

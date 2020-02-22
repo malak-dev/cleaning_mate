@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./login.scss";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { ReactComponent as SpongeLogo } from "../Sponge.svg";
 
 export default function Login(props) {
   console.log(props, "hello");
@@ -12,7 +13,11 @@ export default function Login(props) {
   return (
     <div className="form">
       <form autoComplete="off" onSubmit={event => event.preventDefault()}>
-        <h1 className="form_elements"> Login here </h1>
+        <section className="logo-login">
+          <SpongeLogo />
+          <h1>Cleaning Mate</h1>
+          <h2>You choose, we clean.</h2>
+        </section>
         <div className="form_elements" class="edit">
           <div class="form-group">
             <label>Email address</label>

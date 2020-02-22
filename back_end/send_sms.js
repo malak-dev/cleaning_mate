@@ -5,12 +5,12 @@ const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
 const client = require("twilio")(accountSid, authToken);
 
-const twilioMessage = function(clientName, date, time, hours, phoneNumber) {
+const twilioMessage = function (clientName, date, time, hours, phoneNumber) {
   client.messages
     .create({
       body: `A new appointment was booked with ${clientName} on ${date} at ${time} for ${hours} hours `,
       from: "+12019866954",
-      to: `+1${phoneNumber}`
+      to: `+15149190983`
     })
     .then(message => console.log(message.sid));
 };
