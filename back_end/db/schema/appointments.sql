@@ -17,3 +17,6 @@ CREATE TABLE appointments
   UNIQUE (date,start_time,provider_id)
 
 );
+
+
+
