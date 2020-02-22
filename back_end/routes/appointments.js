@@ -33,7 +33,7 @@ module.exports = db => {
       req.params.providerId
     );
     let query = {
-      text: `UPDATE appointments SET booked = true, client_id = $5  WHERE start_time = $1 and hours = $2 and date = $3 and provider_id = $4 RETURNING *;`,
+      text: `UPDATE appointments SET booked = true, client_id = $5  WHERE start_time >= $1 and start_time <= ($1 + $2) and date = $3 and provider_id = $4 RETURNING *;`,
       values: [
         Number(selected_startTime),
         Number(selected_hours),

@@ -11,7 +11,7 @@ module.exports = db => {
       WHEN date > now() THEN 'Upcoming'
       ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating, a.id
       FROM appointments as a
-      JOIN providers as b on b.id = a.client_id
+      LEFT JOIN providers as b on b.id = a.client_id
       WHERE a.client_id = $1 
       ORDER BY date desc, start_time desc;`,
       values: [userId]
@@ -40,7 +40,16 @@ module.exports = db => {
     const query = {
       text:
         "INSERT INTO clients(email, password, first_name, last_name, phone_number, address,lat,lon) VALUES ($1 ,$2 ,$3 ,$4 ,$5, $6,$7,$8) RETURNING *;",
-      values: [email, password, first_name, last_name, phone_number, address, lat, lon]
+      values: [
+        email,
+        password,
+        first_name,
+        last_name,
+        phone_number,
+        address,
+        lat,
+        lon
+      ]
     };
     db.query(query)
       .then(dbRes => res.send(201))

@@ -8,7 +8,7 @@ VALUES
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
 VALUES
-  ('alex2', 'falco2', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal', 45.543618, -73.613453);
+  ('Mr. B', 'falco2', 5148350149, 'b@gmail.com', '12345', '221 St-Jacques Montreal', 45.526129, -73.630902);
 
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
@@ -18,7 +18,7 @@ VALUES
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
 VALUES
-  ('alex4', 'falco4', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal', 45.551410, -73.631420);
+  ('Mr. D', 'falco4', 5148350149, 'd@gmail.com', '12345', '221 St-Jacques Montreal', 45.530880 , -73.621976);
 
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
@@ -28,7 +28,7 @@ VALUES
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
 VALUES
-  ('alex6', 'falco6', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal', 45.560293, -73.640209);
+  ('Mr. F', 'falco6', 5148350149, 'f@gmail.com', '12345', '221 St-Jacques Montreal', 45.530880, -73.621976);
 
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
@@ -38,7 +38,7 @@ VALUES
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
 VALUES
-  ('alex8', 'falco8', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal', 45.558823, -73.656072);
+  ('Mr. H', 'falco8', 5148350149, 'h@gmail.com', '12345', '221 St-Jacques Montreal', 45.528958, -73.606510);
 
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
@@ -48,7 +48,7 @@ VALUES
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
 VALUES
-  ('alex10', 'falco10', 5148350149, 'afalconer02@gmail.com', '12345', '221 St-Jacques Montreal', 45.558823, -73.656072);
+  ('Mr. J', 'falco10', 5148350149, 'j@gmail.com', '12345', '221 St-Jacques Montreal', 45.535066, -73.595317);
 
 
 INSERT INTO providers
