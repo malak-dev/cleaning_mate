@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import ReactCalendar from "react-calendar";
 
 export default function ProviderHome(props) {
@@ -7,21 +7,34 @@ export default function ProviderHome(props) {
   const [time, setTime] = useState(8);
   const [duration, setDuration] = useState(1);
   const [costPerHour, setCostPerHour] = useState(15);
+  const [day_appointments, SetDayAppointments] = useState([]);
 
-  // function getDayAppointments(id) {
-  //   axios
-  //     .get(`/api/providers/${id}/appointments/day`)
-  //     .then(response => {
-  //       setProviderAppointments(response.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
+  console.log(date);
+  console.log(day_appointments);
+
+  function getDayAppointments(id) {
+    const data = {
+      selected_date: date
+    };
+    axios
+      .post(`/api/providers/${id}/appointments/day`, data)
+      .then(response => {
+        SetDayAppointments(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    if (props.userInformation.id) {
+      getDayAppointments(props.userInformation.id);
+    }
+  }, [date]);
 
   return (
     <div>
-      <p>Manage your Availabilities </p>
+      <p>Manage your Schedule </p>
 
       <div>
         <ReactCalendar
@@ -88,6 +101,23 @@ export default function ProviderHome(props) {
       >
         Add Availabilities
       </button>
+
+      <table className="table table-hover">
+        <thead className="thead-dark">
+          <tr>
+            <th scope="col">Hour</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {day_appointments.map(data => (
+            <tr key={data.hour}>
+              <td>{data.hour}</td>
+              <td>{data.day_schedule}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
