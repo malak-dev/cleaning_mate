@@ -140,7 +140,6 @@ function App() {
     const _userType = localStorage.getItem('userType')
     setUserType(JSON.parse(_userType))
 
-
   }, [])
 
 

@@ -27,6 +27,7 @@ export default function ClientAppointments(props) {
       getClientAppointments(userInformation.id);
     }
   }, []);
+
   return (
     <table className="table table-hover">
       <thead className="thead-dark">
