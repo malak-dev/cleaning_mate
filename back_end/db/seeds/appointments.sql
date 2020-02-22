@@ -115,3 +115,17 @@ INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
   ('2020-03-03', 12, 1, false, 15, null, null, null, 2);
+
+
+
+
+
+INSERT INTO appointments
+  (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
+VALUES
+  ('2020-02-03', 11, 1, false, 15, null, null, 1, 2);
+
+INSERT INTO appointments
+  (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
+VALUES
+  ('2020-02-03', 12, 1, false, 15, null, null, 1, 2);

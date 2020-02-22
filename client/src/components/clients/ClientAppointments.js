@@ -7,7 +7,7 @@ import axios from "axios";
 import Moment from "react-moment";
 
 export default function ClientAppointments(props) {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState("");
   const { userInformation } = props;
   const [clientAppointments, setClientAppointments] = useState([]);
 
@@ -60,7 +60,8 @@ export default function ClientAppointments(props) {
             {data.comment && <td>{data.comment}</td>}
             {data.status === "Completed" && !data.comment && (
               <td>
-                <Comment rating={rating} id={data.id} />
+                <Comment rating={rating} id={data.id} getClientAppointments={getClientAppointments}
+                  userInformation={userInformation} />
               </td>
             )}
           </tr>
