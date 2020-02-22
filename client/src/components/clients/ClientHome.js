@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calender from './Calendar'
 import ReactCalendar from 'react-calendar';
 import Map1 from './Map'
+import Axios from 'axios';
 
 export default function ClientHome(props) {
   const { providerListData, pendingAppointmentDate, bookAppointment } = props
@@ -9,6 +10,17 @@ export default function ClientHome(props) {
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState("")
   const [duration, setDuration] = useState("")
+  const [day, setDay] = useState("")
+
+
+
+  // useEffect(() => {
+  //   { submitDay(date) }
+
+  // }, [date]);
+
+
+
   return (
     <div className="clientHome">
       <p>choose the date, any time you want to start and the duration </p>
@@ -18,6 +30,8 @@ export default function ClientHome(props) {
             <ReactCalendar
               onChange={(date) => { setDate(date) }}
               value={date}
+              onClickDay={(date) => { props.submitDay(date) }}
+
             />
           </div>
           <div class="form-group">
@@ -45,7 +59,8 @@ export default function ClientHome(props) {
         </section>
         <Map1 providerListData={providerListData}
           pendingAppointmentDate={pendingAppointmentDate}
-          bookAppointment={bookAppointment} />      </main>
+          bookAppointment={bookAppointment}
+        />  </main>
 
     </div>
   )

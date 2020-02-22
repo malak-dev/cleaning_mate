@@ -31,6 +31,7 @@ function App() {
   const [userInformation, setUserInformation] = useState();
   const [providerListData, setProviderListData] = useState("");
   const [pendingAppointmentDate, setPendingAppointmentData] = useState("");
+  const [selectedDay, setSelectedDay] = useState("")
 
   // send the login information to the backend
 
@@ -166,6 +167,21 @@ function App() {
       });
   };
 
+  const submitDay = (date) => {
+    const data = {
+      date
+    }
+    axios.post('/api/appointments/day', data)
+      .then(response => {
+        console.log(response)
+        setProviderListData(response.data)
+        setSelectedDay(response.date);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+  }
   const bookAppointment = (id, appointentDateData, history) => {
     const data = {
       selected_startTime: appointentDateData.selected_startTime,
@@ -246,7 +262,8 @@ function App() {
 
             {userType === "client" && <ClientHome submitDate={submitDate} providerListData={providerListData}
               pendingAppointmentDate={pendingAppointmentDate}
-              bookAppointment={bookAppointment} />}
+              bookAppointment={bookAppointment}
+              submitDay={submitDay} />}
             <ProviderList
               providerListData={providerListData}
               pendingAppointmentDate={pendingAppointmentDate}

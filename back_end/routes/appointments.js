@@ -115,6 +115,33 @@ module.exports = db => {
   //     })
   //     .catch(err => console.error("query error", err.stack));
   // });
+  router.post("/day", (req, res) => {
+    const { date } = req.body;
+    console.log(req.body)
+    const query = {
+      text: `
+      SELECT *  
+      FROM (
+      SELECT provider_id, avg(cost_per_hour)::numeric(10,2) as cost_per_hour
+      FROM appointments
+      WHERE booked = false and date = $1
+      GROUP BY provider_id ) as view1
+      JOIN providers as b on view1.provider_id = b.id
+     
+      LEFT JOIN (
+        SELECT provider_id, avg(rating)::numeric(10,2) as rating
+        FROM appointments
+        WHERE date <= now() - interval '1 day'
+        GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id;`,
+      values: [date]
+    }
+    db.query(query)
+      .then(resDb => {
+        res.json(resDb.rows);
+        console.log(resDb.rows)
+      })
+      .catch(err => console.error("query error", err.stack));
+  });
 
   router.post("/", (req, res) => {
     const { selected_startTime, selected_hours, selectedDate } = req.body;
@@ -148,3 +175,4 @@ module.exports = db => {
   });
   return router;
 };
+
