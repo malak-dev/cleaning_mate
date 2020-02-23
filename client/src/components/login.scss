@@ -13,9 +13,11 @@ $paleorange: #FFAF5C;
 // edit_profile style
 .edit {
   width: 35%;
-  margin:auto;
-  display: flex;
-  align-items: center;
+ 
+margin: auto;
+display: flex;
+flex-direction:column;
+justify-content: center;
    
 }
   .m{
@@ -26,7 +28,10 @@ $paleorange: #FFAF5C;
   }
   }
   .form-control{
-    border: 2px solid $paleorange !important ;
+    border: 3px solid $paleorange !important ;
+    &:hover {
+      border: 3px solid $darkblue !important ;
+    }
   }
 
 

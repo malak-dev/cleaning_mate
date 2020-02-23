@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./login.scss";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { ReactComponent as SpongeLogo } from "../Sponge.svg";
+
+
 require("dotenv").config();
 
 export default function Register(props) {
@@ -55,16 +58,16 @@ export default function Register(props) {
     });
   };
   return (
-    <div>
-      <h1> Create a new Account </h1>
-      <form
-        autoComplete="off"
-        onSubmit={event => event.preventDefault()}
-        className="form_elements"
-      >
-        <div className="form_elements" class="edit">
+    <div className="edit">
+      <form autoComplete="off" onSubmit={event => event.preventDefault()} className="form_elements">
+        <section className="logo-login">
+          <SpongeLogo />
+          <h1>Cleaning Mate</h1>
+          <h2>You choose, we clean.</h2>
+          <br />
+        </section>
+        <div className="form_elements" >
           <div class="form-group">
-            <label>First Name</label>
             <input
               class="form-control"
               name="first_name"
@@ -77,7 +80,7 @@ export default function Register(props) {
             />
           </div>
           <div class="form-group">
-            <label>Last Name</label>
+
             <input
               class="form-control"
               name="last_name"
@@ -90,7 +93,7 @@ export default function Register(props) {
             />
           </div>
           <div class="form-group">
-            <label>Email address</label>
+
             <input
               class="form-control"
               aria-describedby="emailHelp"
@@ -105,7 +108,7 @@ export default function Register(props) {
             />
           </div>
           <div class="form-group">
-            <label>Password</label>
+
             <input
               class="form-control"
               name="password"
@@ -117,9 +120,8 @@ export default function Register(props) {
               }}
             />
           </div>
-
           <div class="form-group">
-            <label>Phone Number</label>
+
             <input
               class="form-control"
               name="phone_number"
@@ -132,7 +134,6 @@ export default function Register(props) {
             />
           </div>
           <div class="form-group">
-            <label>Address</label>
             <input
               class="form-control"
               name="address"
@@ -144,10 +145,11 @@ export default function Register(props) {
               }}
             />
           </div>
-
-          <button type="submit" onClick={handleClick} class="btn btn-primary">
-            Register
+          <div className="m">
+            <button type="submit" onClick={handleClick} class="btn btn-primary">
+              Register
           </button>
+          </div>
         </div>
       </form>
     </div>
