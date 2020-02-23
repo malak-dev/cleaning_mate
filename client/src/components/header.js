@@ -8,25 +8,19 @@ export default function Header(props) {
     <header className="list-container">
       <nav>
         <ul>
-          <SpongeLogo />
-          {/*   <li className="list-item">
-            <Link to="/">main</Link>
-  </li> */}
-          {/* <li className="list-item"><Link to="/login">Login</Link></li>
-          <li className="list-item"><Link to="/register">Register</Link></li> */}
           <li className="list-item">
-            <Link to="/edit-profile">profile</Link>
+            <Link to="/Home"> <SpongeLogo /></Link>
           </li>
           <li className="list-item">
             <Link to="/appointments">Appointments</Link>
           </li>
           <li className="list-item">
-            <Link to="/Home">Home</Link>
+            <Link to="/edit-profile">profile</Link>
           </li>
           <li className="list-item" onClick={() => props.submitLogout()}>
             <Link to="/main">logout</Link>
           </li>
-          {/*<li className="list-item"><Link to="/map">Map</Link></li>*/}
+
         </ul>
       </nav>
     </header>

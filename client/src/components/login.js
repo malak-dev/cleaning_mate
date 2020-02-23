@@ -11,20 +11,20 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   let history = useHistory();
   return (
-    <div className="form">
+    <div className="edit">
       <form autoComplete="off" onSubmit={event => event.preventDefault()}>
         <section className="logo-login">
           <SpongeLogo />
           <h1>Cleaning Mate</h1>
           <h2>You choose, we clean.</h2>
+          <br />
         </section>
-        <div className="form_elements" class="edit">
+        <h1> Login in our app</h1>
+        <div className="form_elements" >
           <div class="form-group">
-            <label>Email address</label>
             <input
               class="form-control"
               aria-describedby="emailHelp"
-              id="exampleInputEmail1"
               name="email"
               type="email"
               placeholder="Enter your email"
@@ -35,10 +35,8 @@ export default function Login(props) {
             />
           </div>
           <div class="form-group">
-            <label>Password</label>
             <input
               class="form-control"
-              id="exampleInputPassword1"
               name="password"
               type="text"
               placeholder="Enter your password"
@@ -48,27 +46,24 @@ export default function Login(props) {
               }}
             />
           </div>
-
-          <button
-            type="submit"
-            onClick={() => {
-              props.submitlogin(email, password, history);
-            }}
-            class="btn btn-primary"
-          >
-            Login
+          <div className="m">
+            <button type="submit"
+              onClick={() => {
+                props.submitlogin(email, password, history);
+              }} class="btn btn-primary">Login
           </button>
+          </div>
+          <br />
+
+          <div className="m">
+            <Link to="./Register" >
+              <button type="button" class="btn btn-primary" >
+                Register Here
+          </button>
+            </Link>
+          </div>
         </div>
       </form>
-      <footer>
-        <Link to="./Register">
-          <p></p>
-          <p></p>
-          <button type="button" class="btn btn-success">
-            Register Here
-          </button>
-        </Link>
-      </footer>
-    </div>
+    </div >
   );
 }
