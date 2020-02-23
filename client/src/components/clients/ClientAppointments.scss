@@ -1,3 +1,24 @@
 .react-rater-link{ color:#ccc } 
 .react-rater-hover{color:yellow }
 .react-rater-active{color:yellow }
+
+$darkblue : #0b89b3;
+$paleblue : #4CD3FF;
+$mainorange: #ffa042;
+$paleorange: #FFAF5C;
+
+
+.table1{
+
+width: 80%;
+margin: auto;
+.table{
+  border: 3px solid $paleorange !important  ;
+  &:hover{
+    border: 3px solid $darkblue!important 
+  }
+};
+}
+.head{
+  background-color: $darkblue;
+}

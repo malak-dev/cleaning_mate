@@ -29,44 +29,45 @@ export default function ClientAppointments(props) {
   }, []);
 
   return (
-    <table className="table table-hover">
-      <thead className="thead-dark">
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Provider</th>
-          <th scope="col">Status</th>
-          <th scope="col">Rating</th>
-          <th scope="col">Comments</th>
-        </tr>
-      </thead>
-      <tbody>
-        {clientAppointments.map(data => (
-          <tr key={data.id}>
-            <Moment format="YYYY/MM/DD">{data.date}</Moment>
-            <td>{data.first_name}</td>
-            <td>{data.status}</td>
-            {data.status === "Completed" && (
-              <td>
-                <Rater
-                  total={5}
-                  rating={data.rating || rating}
-                  onRate={({ rating }) => {
-                    setRating(rating);
-                  }}
-                />
-              </td>
-            )}
-            {data.status === "Upcoming" && <td> </td>}
-            {data.comment && <td>{data.comment}</td>}
-            {data.status === "Completed" && !data.comment && (
-              <td>
+    <div className="table1">
+      <table className="table table-hover">
+        <thead className="head">
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Provider</th>
+            <th scope="col">Status</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {clientAppointments.map(data => (
+            <tr key={data.id}>
+              <Moment format="YYYY/MM/DD">{data.date}</Moment>
+              <td>{data.first_name}</td>
+              <td>{data.status}</td>
+              {data.status === "Completed" && (
+                <td>
+                  <Rater
+                    total={5}
+                    rating={data.rating || rating}
+                    onRate={({ rating }) => {
+                      setRating(rating);
+                    }}
+                  />
+                </td>
+              )}
+
+              {data.comment && <td>{data.comment}</td>}
+              {data.status === "Completed" && !data.comment && (
                 <Comment rating={rating} id={data.id} getClientAppointments={getClientAppointments}
                   userInformation={userInformation} />
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

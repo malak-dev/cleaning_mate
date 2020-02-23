@@ -43,7 +43,7 @@ export default function Comment(props) {
         value={comment}
         onChange={(event) => { setComment(event.target.value) }}
       /></td>
-      <td> <button type="submit" onClick={() => submitComment(comment)} class="btn btn-primary"> submit </button></td>
+      <td className="m"> <button type="submit" onClick={() => submitComment(comment)} class="btn btn-primary"> submit </button></td>
     </div>
   )
 }

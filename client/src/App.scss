@@ -31,9 +31,15 @@ $paleorange: #ffaf5c;
 }
 
 .react-calendar {
-  border: 5px solid $paleorange !important;
-}
 
+  border: 5px solid $paleorange !important;
+  width: 90% !important;  
+  height: 90%;
+
+}
+.leaflet-container.leaflet-touch-drag {
+  border: 3px solid $mainorange;
+}
 .clientHome {
   text-align: center;
   main {
@@ -42,7 +48,7 @@ $paleorange: #ffaf5c;
     align-items: flex-start;
   }
   main > div {
-    width: 45%;
+    width: 50%;
     margin: 0;
   }
   main > section {
@@ -54,12 +60,14 @@ $paleorange: #ffaf5c;
       flex-direction: column;
       padding: 0.5em;
       padding-left: 0;
-      margin: 0;
-
+ 
       input {
         background: white;
         border: 5px solid $paleorange !important;
-        width: 100%;
+        width: 90%;
+        &:hover{
+          border: 5px solid $darkblue !important;
+        }
       }
     }
   }

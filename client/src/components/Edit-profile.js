@@ -13,14 +13,15 @@ export default function Edit(props) {
   );
 
   return (
-    <div>
-      <h1> Edit your Profile </h1>
+    <div class="edit">
+
       <form
         autoComplete="off"
         onSubmit={event => event.preventDefault()}
         className="form_elements"
       >
-        <div className="form_elements" class="edit">
+        <h1> Edit your Profile </h1>
+        <div className="form_elements" >
           <div class="form-group">
             <label>First Name</label>
             <input
@@ -102,24 +103,25 @@ export default function Edit(props) {
               }}
             />
           </div>
-
-          <button
-            type="submit"
-            class="btn btn-primary"
-            onClick={() => {
-              props.updateUser(
-                props.userInformation.id,
-                first_name,
-                last_name,
-                email,
-                password,
-                phone_number,
-                address
-              );
-            }}
-          >
-            Edit
+          <div className="m">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              onClick={() => {
+                props.updateUser(
+                  props.userInformation.id,
+                  first_name,
+                  last_name,
+                  email,
+                  password,
+                  phone_number,
+                  address
+                );
+              }}
+            >
+              Edit
           </button>
+          </div>
         </div>
       </form>
     </div>

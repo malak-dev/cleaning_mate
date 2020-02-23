@@ -263,10 +263,10 @@ function App() {
               pendingAppointmentDate={pendingAppointmentDate}
               bookAppointment={bookAppointment}
               submitDay={submitDay} />}
-            <ProviderList
+            {/* <ProviderLists
               providerListData={providerListData}
               pendingAppointmentDate={pendingAppointmentDate}
-              bookAppointment={bookAppointment} />
+              bookAppointment={bookAppointment} /> */}
 
             {userType === "provider" && (
               <ProviderHome

@@ -13,27 +13,20 @@ export default function ClientHome(props) {
   const [day, setDay] = useState("")
 
 
-
-  // useEffect(() => {
-  //   { submitDay(date) }
-
-  // }, [date]);
-
-
-
   return (
     <div className="clientHome">
-      <p>choose the date, any time you want to start and the duration </p>
+      <h1>choose your best time</h1>
+      <br />
+      <br />
       <main>
         <section>
-          <div>
+          <div >
             <ReactCalendar
               onChange={(date) => { setDate(date) }}
               value={date}
               onClickDay={(date) => { props.submitDay(date) }}
-
             />
-          </div>
+          </div >
           <div class="form-group">
             <label >
               <input
@@ -54,13 +47,16 @@ export default function ClientHome(props) {
                 onChange={(event) => { setDuration(event.target.value) }}
 
               /></label>
-            <button type="submit" class="btn btn-primary" onClick={() => { props.submitDate(time, duration, date) }}>Request a helper</button>
+            <div className="m">
+              <button type="submit" class="btn btn-primary" onClick={() => { props.submitDate(time, duration, date) }}>Request a helper</button>
+            </div>
           </div>
         </section>
         <Map1 providerListData={providerListData}
           pendingAppointmentDate={pendingAppointmentDate}
           bookAppointment={bookAppointment}
-        />  </main>
+        />
+      </main>
 
     </div>
   )

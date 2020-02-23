@@ -34,7 +34,8 @@ export default function ProviderHome(props) {
 
   return (
     <div className="clientHome">
-      <p>Manage your Schedule </p>
+      <h1>Manage your Schedule </h1>
+      <br />
       <main>
         <section>
           <div>
@@ -87,39 +88,42 @@ export default function ProviderHome(props) {
               />
             </label>
           </div>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            onClick={() => {
-              props.createAppointment(
-                time,
-                duration,
-                date,
-                costPerHour,
-                props.userInformation.id
-              );
-            }}
-          >
-            Add Availabilities
+          <div className="m">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              onClick={() => {
+                props.createAppointment(
+                  time,
+                  duration,
+                  date,
+                  costPerHour,
+                  props.userInformation.id
+                );
+              }}
+            >
+              Add Availabilities
           </button>
+          </div>
         </section>
-
-        <table className="table table-hover">
-          <thead className="thead-dark">
-            <tr>
-              <th scope="col">Hour</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {day_appointments.map(data => (
-              <tr key={data.hour}>
-                <td>{data.hour}</td>
-                <td>{data.day_schedule}</td>
+        <div className="table1">
+          <table className="table table-hover">
+            <thead className="head">
+              <tr>
+                <th scope="col">Hour</th>
+                <th scope="col">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {day_appointments.map(data => (
+                <tr key={data.hour}>
+                  <td>{data.hour}</td>
+                  <td>{data.day_schedule}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </main>
     </div>
   );

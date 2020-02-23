@@ -41,51 +41,58 @@ export default function ProviderAppointments(props) {
   console.log(providerAppointments);
 
   return (
-    <table className="table table-hover">
-      <thead className="thead-dark">
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Time</th>
-          <th scope="col">Client</th>
-          <th scope="col">$/Hour</th>
-          <th scope="col">Status</th>
-          <th scope="col">Booked</th>
-          <th scope="col">Rating</th>
-          <th scope="col">Comments</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {providerAppointments.map(data => (
-          <tr key={data.id}>
-            <td>
-              <Moment format="YYYY/MM/DD">{data.date}</Moment>
-            </td>
-            <td>{data.start_time}</td>
-            <td>{data.first_name}</td>
-            <td>{data.cost_per_hour}</td>
-            <td>{data.status}</td>
-            <td>{data.booked}</td>
-            <td>
-              {data.status !== "Upcoming" && (
-                <Rater total={5} rating={data.rating} />
-              )}
-            </td>
-            <td>{data.comment}</td>
-            <td>
-              {data.booked === "Available" && (
-                <button
-                  type="submit"
-                  onClick={() => cancelAppointment(data.id)}
-                  class="btn btn-warning"
-                >
-                  cancel
-                </button>
-              )}
-            </td>
+
+    <div className="table1">
+      <br />
+      <br />
+      <table className="table table-hover">
+        <thead className="head">
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Client</th>
+            <th scope="col">$/Hour</th>
+            <th scope="col">Status</th>
+            <th scope="col">Booked</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Comments</th>
+            <th scope="col"></th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {providerAppointments.map(data => (
+            <tr key={data.id}>
+              <td>
+                <Moment format="YYYY/MM/DD">{data.date}</Moment>
+              </td>
+              <td>{data.start_time}</td>
+              <td>{data.first_name}</td>
+              <td>{data.cost_per_hour}</td>
+              <td>{data.status}</td>
+              <td>{data.booked}</td>
+              <td>
+                {data.status !== "Upcoming" && (
+                  <Rater total={5} rating={data.rating} />
+                )}
+              </td>
+              <td>{data.comment}</td>
+              <td>
+                {data.booked === "Available" && (
+                  <div className="m">
+                    <button
+                      type="submit"
+                      onClick={() => cancelAppointment(data.id)}
+                      class="btn btn-primary"
+                    >
+                      cancel
+                </button>
+                  </div>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
