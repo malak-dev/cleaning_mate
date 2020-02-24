@@ -16,9 +16,9 @@ module.exports = db => {
       clientId,
       clientName
     } = req.body;
-    console.log("alexxxxxxxx", req.body, req.params.providerId);
+
     let query = {
-      text: `UPDATE appointments SET booked = true, client_id = $5  WHERE start_time >= $1 and start_time <= ($1 + $2) and date = $3 and provider_id = $4 RETURNING *;`,
+      text: `UPDATE appointments SET booked = true, client_id = $5  WHERE start_time >= $1 and start_time < ($1 + $2) and date = $3 and provider_id = $4 RETURNING *;`,
       values: [
         Number(selected_startTime),
         Number(selected_hours),
@@ -36,12 +36,18 @@ module.exports = db => {
         selected_hours,
         "afalconer@protonmail.com"
       );
-      twilioMessage(
+      twilioMessageProvider(
         clientName,
         selectedDate,
         selected_startTime,
         selected_hours,
         "5148350149"
+      );
+      twilioMessageClient(
+        selectedDate,
+        selected_startTime,
+        selected_hours,
+        "5149190983"
       );
 
       res.json(dbRes.rows);
@@ -159,7 +165,7 @@ module.exports = db => {
         SELECT a.provider_id as provider_id, b.first_name, count(hours) as hours, avg(cost_per_hour)::numeric(10,2) as cost_per_hour, lat ,lon 
             FROM appointments as a
         JOIN providers as b on a.provider_id = b.id
-        WHERE booked = false and date = $3 and start_time >= $1 and start_time <= ($1+$2)
+        WHERE booked = false and date = $3 and start_time >= $1 and start_time < ($1+$2)
          GROUP BY a.provider_id,b.first_name, lat,lon
           ) as view1
             LEFT JOIN
