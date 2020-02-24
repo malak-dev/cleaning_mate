@@ -15,7 +15,7 @@ export default function ClientHome(props) {
 
   return (
     <div className="clientHome">
-      <h1>choose your best time</h1>
+      <h>choose your best time</h>
       <br />
       <br />
       <main>

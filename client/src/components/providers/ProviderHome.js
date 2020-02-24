@@ -108,7 +108,7 @@ export default function ProviderHome(props) {
         </section>
         <div className="table1">
           <table className="table table-hover">
-            <thead className="head">
+            <thead className="thead-dark">
               <tr>
                 <th scope="col">Hour</th>
                 <th scope="col">Status</th>
