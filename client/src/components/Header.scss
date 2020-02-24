@@ -1,5 +1,5 @@
 $darkblue : #0b89b3;
-$paleblue : #4CD3FF;
+$paleblue : rgb(194, 233, 247);
 $mainorange: #ffa042;
 $paleorange: #FFAF5C;
 
@@ -18,13 +18,15 @@ $paleorange: #FFAF5C;
       
       a{
         color:$mainorange;
+        font-size: 20px;
+        font-weight: bold;
       }
     }
   }
 
 
   svg{
-    height:50px;
+    height:60px;
     margin-bottom:0.5em;
     margin-right:auto;
     

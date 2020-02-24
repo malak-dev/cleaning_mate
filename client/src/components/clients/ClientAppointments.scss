@@ -2,16 +2,20 @@
 .react-rater-hover{color:yellow }
 .react-rater-active{color:yellow }
 
+.react-rater-star.is-active{
+  color:rgb(224, 224, 44);
+}
 $darkblue : #0b89b3;
-$paleblue : #4CD3FF;
+$paleblue : rgb(194, 233, 247);
 $mainorange: #ffa042;
 $paleorange: #FFAF5C;
 
 
 .table1{
 
-width: 80%;
+width: 70%;
 margin: auto;
+margin-top: 30px;
 .table{
   border: 3px solid $paleorange !important  ;
   &:hover{
@@ -20,5 +24,6 @@ margin: auto;
 };
 }
 .head{
+
   background-color: $darkblue;
 }

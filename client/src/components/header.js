@@ -15,10 +15,10 @@ export default function Header(props) {
             <Link to="/appointments">Appointments</Link>
           </li>
           <li className="list-item">
-            <Link to="/edit-profile">profile</Link>
+            <Link to="/edit-profile">Profile</Link>
           </li>
           <li className="list-item" onClick={() => props.submitLogout()}>
-            <Link to="/main">logout</Link>
+            <Link to="/main">Logout</Link>
           </li>
 
         </ul>
