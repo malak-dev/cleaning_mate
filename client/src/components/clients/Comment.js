@@ -36,7 +36,7 @@ export default function Comment(props) {
 
   return (
     <div>
-      <td>  <input
+      <td> <input
         class="form-control"
         name="comment"
         type="text"
