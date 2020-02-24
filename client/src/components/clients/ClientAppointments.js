@@ -51,7 +51,7 @@ export default function ClientAppointments(props) {
                 <td>
                   <Rater
                     total={5}
-                    rating={data.rating || rating}
+                    rating={data.rating}
                     onRate={({ rating }) => {
                       setRating(rating);
                     }}

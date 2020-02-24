@@ -12,8 +12,9 @@ import { Link, useHistory } from 'react-router-dom';
 export default function Map1(props) {
   const history = useHistory()
   const [position, setPosition] = useState([45.53, -73.57]);
-
+  const pendingAppointmentDate = props.pendingAppointmentDate
   const providerListData = props.providerListData || [];
+  const submitData = props.submitData
 
   return (
     <div >
@@ -28,9 +29,11 @@ export default function Map1(props) {
             <Popup>
               <p>{data.first_name}</p>
               <p>{data.cost_per_hour}$/h</p>
-              <Rater total={5} rating={data.rating} />
+              <Rater total={5} rating={data.rating} interactive={false} />
               <Link to="/appointments"></Link>
-              <p><button type="submit" class="btn btn-primary" onClick={() => { props.bookAppointment(data.provider_id, props.pendingAppointmentDate, history) }}>Request</button></p>
+              {pendingAppointmentDate &&
+                <p><button type="submit" class="btn btn-primary" onClick={() => { props.bookAppointment(data.provider_id, props.pendingAppointmentDate, history) }}>Request</button></p>
+              }
             </Popup>
           </Marker>
         ))}

@@ -72,7 +72,7 @@ export default function ProviderAppointments(props) {
               <td>{data.booked}</td>
               <td>
                 {data.status !== "Upcoming" && (
-                  <Rater total={5} rating={data.rating} />
+                  <Rater total={5} rating={data.rating} interactive={false} />
                 )}
               </td>
               <td>{data.comment}</td>
