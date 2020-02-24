@@ -112,7 +112,7 @@ export default function Register(props) {
             <input
               class="form-control"
               name="password"
-              type="text"
+              type="password"
               placeholder="Enter your password"
               value={password}
               onChange={event => {

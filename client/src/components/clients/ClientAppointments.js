@@ -32,7 +32,7 @@ export default function ClientAppointments(props) {
   return (
     <div className="table1">
       <table className="table table-hover">
-        <thead className="thead-dark">
+        <thead className="head">
           <tr>
             <th scope="col">Date</th>
             <th scope="col">Provider</th>
@@ -48,7 +48,7 @@ export default function ClientAppointments(props) {
               <Moment format="YYYY/MM/DD">{data.date}</Moment>
               <td>{data.first_name}</td>
               <td>{data.status}</td>
-              {data.status === "Upcoming" && <td>  </td>}
+              {data.status === "Upcoming" && <td>you can't rate now</td>}
               {data.status === "Completed" && (
                 <td>
                   <Rater
@@ -61,14 +61,14 @@ export default function ClientAppointments(props) {
                 </td>
               )}
               {data.comment && <td>{data.comment}</td>}
-              {data.status === "Upcoming" && !data.comment && (<td>  </td>)}
+              {data.status === "Upcoming" && !data.comment && (<td>you can't comment now</td>)}
               {data.status === "Completed" && !data.comment && (
-                <Comment
+                <td><Comment
                   rating={rating}
                   id={data.id}
                   getClientAppointments={getClientAppointments}
                   userInformation={userInformation}
-                />
+                /></td>
               )}
             </tr>
           ))}

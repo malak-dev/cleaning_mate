@@ -19,7 +19,8 @@ export default function Login(props) {
           <h2>You choose, we clean.</h2>
           <br />
         </section>
-        <h1> Login in our app</h1>
+        <h> Login In Our App</h>
+
         <div className="form_elements" >
           <div class="form-group">
             <input
@@ -38,7 +39,7 @@ export default function Login(props) {
             <input
               class="form-control"
               name="password"
-              type="text"
+              type="password"
               placeholder="Enter your password"
               value={password}
               onChange={event => {
@@ -46,21 +47,22 @@ export default function Login(props) {
               }}
             />
           </div>
-          <div className="m">
-            <button type="submit"
-              onClick={() => {
-                props.submitlogin(email, password, history);
-              }} class="btn btn-primary">Login
+          <div id="button1">
+            <div className="m">
+              <button type="submit"
+                onClick={() => {
+                  props.submitlogin(email, password, history);
+                }} class="btn btn-primary"> Login
           </button>
-          </div>
-          <br />
-
-          <div className="m">
-            <Link to="./Register" >
-              <button type="button" class="btn btn-primary" >
-                Register Here
+            </div>
+            <br />
+            <div className="m">
+              <Link to="./Register" >
+                <button type="button" class="btn btn-primary" >
+                  Register Here
           </button>
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
       </form>

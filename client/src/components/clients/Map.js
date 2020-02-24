@@ -26,7 +26,7 @@ export default function Map1(props) {
         />
         {providerListData.map((data) => (
           <Marker position={[data.lat, data.lon]}>
-            <Popup>
+            <Popup className="list">
               <p>{data.first_name}</p>
               <p>{data.cost_per_hour}$/h</p>
               <Rater total={5} rating={data.rating} interactive={false} />

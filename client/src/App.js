@@ -120,11 +120,13 @@ function App() {
       phone_number,
       address
     };
+    console.log(data)
     axios
-      .put(`/api/clients/${id}`, data)
+      .put(`/api/${userType}s/update/${id}`, data)
       .then(response => {
         if (!response.data.error) {
           setUserInformation(response.data);
+
         }
         console.log(response);
       })

@@ -12,8 +12,7 @@ $paleorange: #FFAF5C;
 }
 // edit_profile style
 .edit {
-  width: 35%;
- 
+width: 35%;
 margin: auto;
 display: flex;
 flex-direction:column;
@@ -21,7 +20,6 @@ justify-content: center;
    
 }
   .m{
-  text-align: center ;
   &:hover button {
    background-color: $paleorange;
    border: 3px solid $darkblue;
@@ -32,14 +30,16 @@ justify-content: center;
     &:hover {
       border: 3px solid $darkblue !important ;
     }
+   
   }
 
 
 .logo-login {
   svg {
-    height: 10vh;
+    height: 19vh;
     min-height: 100px;
     margin-bottom: 0.5em;
+  
 
     .cls-1 {
       fill: transparent;
@@ -54,5 +54,19 @@ justify-content: center;
   }
   h2 {
     font-size: 0.8em;
+  }
+}
+body{
+  text-align: center !important;
+}
+h{
+  font-size: 20px;
+}
+#button1{
+ 
+  width: 500px;
+  button{
+    width: 50%;
+   
   }
 }

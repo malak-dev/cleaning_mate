@@ -34,7 +34,8 @@ export default function ProviderHome(props) {
 
   return (
     <div className="clientHome">
-      <h1>Manage your Schedule </h1>
+      <h id="head">Manage Your Schedule </h>
+      <br />
       <br />
       <main>
         <section>
@@ -108,7 +109,7 @@ export default function ProviderHome(props) {
         </section>
         <div className="table1">
           <table className="table table-hover">
-            <thead className="thead-dark">
+            <thead className="head">
               <tr>
                 <th scope="col">Hour</th>
                 <th scope="col">Status</th>

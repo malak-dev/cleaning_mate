@@ -36,14 +36,14 @@ export default function Comment(props) {
 
   return (
     <div>
-      <td><input
+      <td>  <input
         class="form-control"
         name="comment"
         type="text"
         value={comment}
         onChange={(event) => { setComment(event.target.value) }}
       /></td>
-      <td className="m"> <button type="submit" onClick={() => submitComment(comment)} class="btn btn-primary"> submit </button></td>
-    </div>
+      <td><button type="submit" onClick={() => submitComment(comment)} class="btn btn-primary"> submit </button></td>
+    </div >
   )
 }

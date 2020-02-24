@@ -46,7 +46,7 @@ export default function ProviderAppointments(props) {
       <br />
       <br />
       <table className="table table-hover">
-        <thead className="thead-dark">
+        <thead className="head">
           <tr>
             <th scope="col">Date</th>
             <th scope="col">Time</th>

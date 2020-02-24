@@ -69,11 +69,23 @@ $paleorange: #ffaf5c;
           border: 5px solid $darkblue !important;
         }
       }
+      button{
+        width: 90%;
+       margin-right: 10%;
+      }
     }
+   
   }
+ 
 }
 .leaflet-container {
   min-height: 450px;
   align-self: stretch;
   width: 100%;
+}
+
+#head{
+  font-size: 1.6em;
+  font-weight: bold;
+  color: $mainorange;
 }

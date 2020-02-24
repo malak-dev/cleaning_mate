@@ -57,14 +57,14 @@ module.exports = db => {
   });
 
   //Update existing client
-  router.put("/:userId", (req, res) => {
+  router.put("/update/:userId", (req, res) => {
     const userId = req.params.userId;
     const {
       email,
       password,
       first_name,
       last_name,
-      number,
+      phone_number,
       address
     } = req.body;
 
@@ -75,7 +75,7 @@ module.exports = db => {
         password,
         first_name,
         last_name,
-        Number(number),
+        Number(phone_number),
         address,
         userId
       ]
