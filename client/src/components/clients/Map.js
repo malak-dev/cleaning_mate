@@ -29,7 +29,7 @@ export default function Map1(props) {
             <Popup>
               <p>{data.first_name}</p>
               <p>{data.cost_per_hour}$/h</p>
-              <Rater total={5} rating={data.rating} />
+              <Rater total={5} rating={data.rating} interactive={false} />
               <Link to="/appointments"></Link>
               {pendingAppointmentDate &&
                 <p><button type="submit" class="btn btn-primary" onClick={() => { props.bookAppointment(data.provider_id, props.pendingAppointmentDate, history) }}>Request</button></p>
