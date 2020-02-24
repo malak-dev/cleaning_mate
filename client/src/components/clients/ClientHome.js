@@ -48,13 +48,14 @@ export default function ClientHome(props) {
 
               /></label>
             <div className="m">
-              <button type="submit" class="btn btn-primary" onClick={() => { props.submitDate(time, duration, date) }}>Request a helper</button>
+              <button type="submit" class="btn btn-primary" onClick={() => { props.submitDate(time, duration, date) }}>Filter</button>
             </div>
           </div>
         </section>
         <Map1 providerListData={providerListData}
           pendingAppointmentDate={pendingAppointmentDate}
           bookAppointment={bookAppointment}
+
         />
       </main>
 
