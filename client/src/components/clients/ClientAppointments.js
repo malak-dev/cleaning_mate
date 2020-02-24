@@ -51,7 +51,6 @@ export default function ClientAppointments(props) {
                   <Rater
                     total={5}
                     rating={data.rating}
-
                     onRate={({ rating }) => {
                       setRating(rating);
                     }}
