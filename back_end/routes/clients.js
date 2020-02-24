@@ -11,7 +11,7 @@ module.exports = db => {
       WHEN date > now() THEN 'Upcoming'
       ELSE 'Completed' END AS Status, a.cost_per_hour, a.comment, a.rating, a.id
       FROM appointments as a
-      LEFT JOIN providers as b on b.id = a.client_id
+      LEFT JOIN providers as b on b.id = a.provider_id
       WHERE a.client_id = $1 
       ORDER BY date desc, start_time desc;`,
       values: [userId]

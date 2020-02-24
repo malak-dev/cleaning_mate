@@ -16,6 +16,7 @@ export default function ClientAppointments(props) {
       .get(`/api/clients/${id}/appointments`)
       .then(response => {
         setClientAppointments(response.data);
+        console.log(response.data, "je te test");
       })
       .catch(err => {
         console.log(err);
@@ -60,9 +61,12 @@ export default function ClientAppointments(props) {
 
               {data.comment && <td>{data.comment}</td>}
               {data.status === "Completed" && !data.comment && (
-                <Comment rating={rating} id={data.id} getClientAppointments={getClientAppointments}
-                  userInformation={userInformation} />
-
+                <Comment
+                  rating={rating}
+                  id={data.id}
+                  getClientAppointments={getClientAppointments}
+                  userInformation={userInformation}
+                />
               )}
             </tr>
           ))}

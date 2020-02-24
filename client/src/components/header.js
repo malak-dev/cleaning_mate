@@ -9,7 +9,10 @@ export default function Header(props) {
       <nav>
         <ul>
           <li className="list-item">
-            <Link to="/Home"> <SpongeLogo /></Link>
+            <Link to="/Home">
+              {" "}
+              <SpongeLogo />
+            </Link>
           </li>
           <li className="list-item">
             <Link to="/appointments">Appointments</Link>
@@ -20,7 +23,6 @@ export default function Header(props) {
           <li className="list-item" onClick={() => props.submitLogout()}>
             <Link to="/main">logout</Link>
           </li>
-
         </ul>
       </nav>
     </header>
