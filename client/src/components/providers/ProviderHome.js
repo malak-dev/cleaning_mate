@@ -4,9 +4,9 @@ import ReactCalendar from "react-calendar";
 
 export default function ProviderHome(props) {
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(8);
-  const [duration, setDuration] = useState(1);
-  const [costPerHour, setCostPerHour] = useState(15);
+  const [time, setTime] = useState();
+  const [duration, setDuration] = useState();
+  const [costPerHour, setCostPerHour] = useState();
   const [day_appointments, SetDayAppointments] = useState([]);
 
   console.log(date);
@@ -48,7 +48,6 @@ export default function ProviderHome(props) {
           </div>
           <div class="form-group">
             <label>
-              start time
               <input
                 class="form-control"
                 name="start-time"
@@ -57,16 +56,17 @@ export default function ProviderHome(props) {
                 onChange={event => {
                   setTime(event.target.value);
                 }}
+                placeholder="Start time"
               />
             </label>
           </div>
           <div class="form-group">
             <label>
-              Duration
               <input
                 class="form-control"
                 name="start-time"
                 type="number"
+                placeholder="Wished duration"
                 value={duration}
                 onChange={event => {
                   setDuration(event.target.value);
@@ -76,11 +76,11 @@ export default function ProviderHome(props) {
           </div>
           <div class="form-group">
             <label>
-              $/hour
               <input
                 class="form-control"
                 name="cost_per_hour"
                 type="number"
+                placeholder="$/hour"
                 value={costPerHour}
                 onChange={event => {
                   setCostPerHour(event.target.value);
@@ -103,7 +103,7 @@ export default function ProviderHome(props) {
               }}
             >
               Add Availabilities
-          </button>
+            </button>
           </div>
         </section>
         <div className="table1">
