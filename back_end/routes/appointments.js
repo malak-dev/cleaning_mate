@@ -1,6 +1,9 @@
 const router = require("express").Router();
 require("dotenv").config();
-const { twilioMessage } = require("../send_sms.js");
+const {
+  twilioMessageProvider,
+  twilioMessageClient
+} = require("../send_sms.js");
 const { mailGunMessage } = require("../send_email.js");
 
 module.exports = db => {
