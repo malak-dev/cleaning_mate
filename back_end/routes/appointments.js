@@ -6,7 +6,6 @@ const { mailGunMessage } = require("../send_email.js");
 module.exports = db => {
   //upadate appointment with comment and rating
 
-
   // book an appointment
   router.put("/book/:providerId", (req, res) => {
     const providerId = req.params.providerId;
@@ -17,11 +16,7 @@ module.exports = db => {
       clientId,
       clientName
     } = req.body;
-    console.log(
-      "alexxxxxxxx",
-      req.body,
-      req.params.providerId
-    );
+    console.log("alexxxxxxxx", req.body, req.params.providerId);
     let query = {
       text: `UPDATE appointments SET booked = true, client_id = $5  WHERE start_time >= $1 and start_time <= ($1 + $2) and date = $3 and provider_id = $4 RETURNING *;`,
       values: [
@@ -33,7 +28,7 @@ module.exports = db => {
       ]
     };
     db.query(query).then(dbRes => {
-      console.log(dbRes.rows, "provider")
+      console.log(dbRes.rows, "provider");
       mailGunMessage(
         clientName,
         selectedDate,
@@ -46,7 +41,7 @@ module.exports = db => {
         selectedDate,
         selected_startTime,
         selected_hours,
-        "5149190983"
+        "5148350149"
       );
 
       res.json(dbRes.rows);
@@ -109,7 +104,7 @@ module.exports = db => {
   // });
   router.post("/day", (req, res) => {
     const { date } = req.body;
-    console.log(req.body)
+    console.log(req.body);
     const query = {
       text: `
       SELECT view1.provider_id as provider_id, first_name, hours, cost_per_hour, lat, lon, view2.rating
@@ -128,11 +123,11 @@ module.exports = db => {
          GROUP by provider_id) as view2 on  view1.provider_id = view2.provider_id
         `,
       values: [date]
-    }
+    };
     db.query(query)
       .then(resDb => {
         res.json(resDb.rows);
-        console.log(resDb.rows)
+        console.log(resDb.rows);
       })
       .catch(err => console.error("query error", err.stack));
   });
@@ -140,21 +135,19 @@ module.exports = db => {
   router.put("/:id", (req, res) => {
     const id = req.params.id;
     const { rating, comment } = req.body;
-    console.log("hhhhhhhhhhhhh", rating, comment, id)
+    console.log("hhhhhhhhhhhhh", rating, comment, id);
 
     let query = {
       text: `UPDATE appointments SET rating=$1 , comment=$2  WHERE id=$3 RETURNING * ;`,
       values: [rating, comment, id]
     };
-    db.query(query).then(dbRes => {
-      console.log(dbRes.rows)
-      res.json(dbRes.rows);
-
-    })
+    db.query(query)
+      .then(dbRes => {
+        console.log(dbRes.rows);
+        res.json(dbRes.rows);
+      })
       .catch(err => console.error("query error", err.stack));
   });
-
-
 
   router.post("/", (req, res) => {
     const { selected_startTime, selected_hours, selectedDate } = req.body;
@@ -181,11 +174,10 @@ module.exports = db => {
     };
     db.query(query)
       .then(resDb => {
-        console.log(resDb.rows)
+        console.log(resDb.rows);
         res.json(resDb.rows);
       })
       .catch(err => console.error("query error", err.stack));
   });
   return router;
 };
-
