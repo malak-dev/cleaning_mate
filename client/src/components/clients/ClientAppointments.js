@@ -49,13 +49,26 @@ export default function ClientAppointments(props) {
               <td>{data.first_name}</td>
               <td>{data.status}</td>
               {data.status === "Upcoming" && <td>you can't rate yet </td>}
-              {data.status === "Completed" && (
+              {data.status === "Completed" && !data.rating && (
                 <td>
                   <Rater
                     total={5}
                     rating={data.rating}
                     onRate={({ rating }) => {
                       setRating(rating);
+                    }}
+                  />
+                </td>
+              )}
+              {data.status === "Completed" && data.rating && (
+                <td>
+                  <Rater
+                    total={5}
+                    rating={data.rating}
+                    interactive={false}
+                    onRate={({ rating }) => {
+                      setRating(rating);
+
                     }}
                   />
                 </td>
