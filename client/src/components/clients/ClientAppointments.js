@@ -48,7 +48,7 @@ export default function ClientAppointments(props) {
               <Moment format="YYYY/MM/DD">{data.date}</Moment>
               <td>{data.first_name}</td>
               <td>{data.status}</td>
-              {data.status === "Upcoming" && <td>you can't rate now</td>}
+              {data.status === "Upcoming" && <td>you can't rate yet </td>}
               {data.status === "Completed" && (
                 <td>
                   <Rater
@@ -61,7 +61,7 @@ export default function ClientAppointments(props) {
                 </td>
               )}
               {data.comment && <td>{data.comment}</td>}
-              {data.status === "Upcoming" && !data.comment && (<td>you can't comment now</td>)}
+              {data.status === "Upcoming" && !data.comment && (<td>you can't comment yet</td>)}
               {data.status === "Completed" && !data.comment && (
                 <td><Comment
                   rating={rating}
