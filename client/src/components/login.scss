@@ -26,11 +26,12 @@ justify-content: center;
   }
   }
   .form-control{
+    width: 50%;
     border: 3px solid $paleorange !important ;
     &:hover {
       border: 3px solid $darkblue !important ;
     }
-   
+    
   }
 
 
@@ -62,11 +63,6 @@ body{
 h{
   font-size: 20px;
 }
-#button1{
- 
-  width: 500px;
-  button{
-    width: 50%;
-   
-  }
+button{
+  width:50%
 }

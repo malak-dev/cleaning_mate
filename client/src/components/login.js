@@ -13,6 +13,7 @@ export default function Login(props) {
   return (
     <div className="edit">
       <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+
         <section className="logo-login">
           <SpongeLogo />
           <h1>Cleaning Mate</h1>
