@@ -125,6 +125,9 @@ function App() {
       .put(`/api/${userType}s/update/${id}`, data)
       .then(response => {
         if (!response.data.error) {
+          localStorage.setItem('userInformation', JSON.stringify(response.data))
+          localStorage.setItem('userType', JSON.stringify(userType))
+
           setUserInformation(response.data);
 
         }
