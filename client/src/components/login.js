@@ -22,7 +22,6 @@ export default function Login(props) {
         </section>
         <h> Login In Our App</h>
         <br />
-        <br />
         <div className="form_elements" >
           <div class="form-group">
             <input

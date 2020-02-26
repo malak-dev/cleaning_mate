@@ -10,7 +10,7 @@ VALUES
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
-  ('2020-02-04', 10, 1, true, 30, 'Not the best', 2, 3, 1);
+  ('2020-02-04', 10, 1, true, 30, 'Not the best', 5, 3, 1);
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
@@ -22,7 +22,7 @@ VALUES
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
-  ('2020-02-07', 10, 1, true, 30, 'Late to Work', 2, 1, 1);
+  ('2020-02-07', 10, 1, true, 30, 'Late to Work', 5, 1, 1);
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
@@ -82,7 +82,7 @@ VALUES
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
-  ('2020-04-01', 9, 1, false, 20, null, null, null, 1);
+  ('2020-04-01', 9, 1, false, 15, null, null, null, 1);
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
@@ -114,7 +114,7 @@ VALUES
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
-  ('2020-04-01', 10, 1, false, 20, null, null, null, 1);
+  ('2020-04-01', 10, 1, false, 15, null, null, null, 1);
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
@@ -146,7 +146,7 @@ VALUES
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES
-  ('2020-04-01', 11, 1, false, 20, null, null, null, 1);
+  ('2020-04-01', 11, 1, false, 15, null, null, null, 1);
 INSERT INTO appointments
   (date,start_time,hours,booked,cost_per_hour,comment,rating,client_id,provider_id)
 VALUES

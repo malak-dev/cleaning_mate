@@ -43,8 +43,7 @@ export default function ProviderAppointments(props) {
   return (
 
     <div className="table1">
-      <br />
-      <br />
+
       <table className="table table-hover">
         <thead className="head">
           <tr>
