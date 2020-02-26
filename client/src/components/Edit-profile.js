@@ -68,7 +68,7 @@ export default function Edit(props) {
               <input
                 class="form-control"
                 name="password"
-                type="text"
+                type="password"
                 placeholder={props.userInformation.password}
                 value={password}
                 onChange={event => {

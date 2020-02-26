@@ -48,46 +48,46 @@ export default function ProviderHome(props) {
             />
           </div>
           <div class="form-group">
-            <label>
-              <input
-                class="form-control"
-                name="start-time"
-                type="text"
-                value={time}
-                onChange={event => {
-                  setTime(event.target.value);
-                }}
-                placeholder="Start time"
-              />
-            </label>
+
+            <input
+              class="form-control"
+              name="start-time"
+              type="text"
+              value={time}
+              onChange={event => {
+                setTime(event.target.value);
+              }}
+              placeholder="Start time"
+            />
+
           </div>
           <div class="form-group">
-            <label>
-              <input
-                class="form-control"
-                name="start-time"
-                type="number"
-                placeholder="Wished duration"
-                value={duration}
-                onChange={event => {
-                  setDuration(event.target.value);
-                }}
-              />
-            </label>
+
+            <input
+              class="form-control"
+              name="start-time"
+              type="number"
+              placeholder="Wished duration"
+              value={duration}
+              onChange={event => {
+                setDuration(event.target.value);
+              }}
+            />
+
           </div>
           <div class="form-group">
-            <label>
-              <input
-                class="form-control"
-                name="cost_per_hour"
-                type="number"
-                placeholder="$/hour"
-                value={costPerHour}
-                onChange={event => {
-                  setCostPerHour(event.target.value);
-                }}
-              />
-            </label>
+
+            <input
+              class="form-control"
+              name="cost_per_hour"
+              type="number"
+              placeholder="$/hour"
+              value={costPerHour}
+              onChange={event => {
+                setCostPerHour(event.target.value);
+              }}
+            />
+
           </div>
           <div className="m">
             <button
