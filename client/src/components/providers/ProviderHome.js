@@ -34,7 +34,7 @@ export default function ProviderHome(props) {
 
   return (
     <div className="clientHome">
-      <h id="head">Manage Your Schedule </h>
+      <h id="head">Manage your schedule </h>
       <br />
       <br />
       <main>
@@ -67,7 +67,7 @@ export default function ProviderHome(props) {
               class="form-control"
               name="start-time"
               type="number"
-              placeholder="Wished duration"
+              placeholder="duration (hrs)"
               value={duration}
               onChange={event => {
                 setDuration(event.target.value);

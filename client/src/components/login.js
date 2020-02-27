@@ -20,7 +20,7 @@ export default function Login(props) {
           <h2>You choose, we clean.</h2>
           <br />
         </section>
-        <h> Login In Our App</h>
+        <h> Login to the platform</h>
         <br />
         <div className="form_elements" >
           <div class="form-group">

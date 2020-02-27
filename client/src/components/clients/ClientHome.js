@@ -15,7 +15,7 @@ export default function ClientHome(props) {
 
   return (
     <div className="clientHome">
-      <h id="head">Choose Your Best Time</h>
+      <h id="head">Choose the request time</h>
       <br />
       <br />
       <main>
@@ -43,7 +43,7 @@ export default function ClientHome(props) {
                 name="start-time"
                 type="number"
                 value={duration}
-                placeholder="Wished duration"
+                placeholder="duration (hrs)"
                 onChange={(event) => { setDuration(event.target.value) }}
 
               /></label>
