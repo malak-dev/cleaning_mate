@@ -1,7 +1,7 @@
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
 VALUES
-  ('Cassie', 'falco1', 5148350149, 'a@gmail.com', '12345', '221 St-Jacques Montreal', 45.541276, -73.610938);
+  ('Cassie', 'falco1', 5148350149, 'cassie@gmail.com', '12345', '221 St-Jacques Montreal', 45.541276, -73.610938);
 INSERT INTO providers
   (first_name,last_name,phone_number,email,password,address,lat,lon)
 VALUES
