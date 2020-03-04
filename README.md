@@ -12,5 +12,5 @@ The app will be served at http://localhost:3005/.
 
 
 <video width="320" height="240" controls>
-  <source src="" type="video/mp4">
+  <source src="https://github.com/malak-dev/cleaning_mate/blob/master/docs/final_project.mov" type="video/mp4">
 </video>
