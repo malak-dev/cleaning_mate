@@ -13,3 +13,23 @@ The app will be served at http://localhost:3005/ .
  4.Go to http://localhost:3005/ in your browser .
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/mhYABjg0Kxg/0.jpg)](https://www.youtube.com/watch?v=mhYABjg0Kxg)
+
+## Dependencies
+Front-end:
+Axios
+React-calendar
+React-dom
+React-leaflet
+React-rater
+React-moment
+node-sass
+Bootstrap
+
+## 
+Back-end:
+Body-parser
+Cookie-parser
+Express
+Mailgun-js
+Twilio
+pg
