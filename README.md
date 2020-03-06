@@ -11,6 +11,4 @@ The app will be served at http://localhost:3005/.
 ## 4.Go to http://localhost:3005/ in your browser.
 
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/malak-dev/cleaning_mate/blob/master/docs/final_project.mov" type="video/mp4">
-</video>
+[![](https://youtu.be/mhYABjg0Kxg)]
