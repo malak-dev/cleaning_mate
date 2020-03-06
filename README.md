@@ -16,20 +16,20 @@ The app will be served at http://localhost:3005/ .
 
 ## Dependencies
 Front-end:
-Axios
-React-calendar
-React-dom
-React-leaflet
-React-rater
-React-moment
-node-sass
-Bootstrap
+- Axios
+- React-calendar
+- React-dom
+- React-leaflet
+- React-rater
+- React-moment
+- node-sass
+- Bootstrap
 
 ## 
 Back-end:
-Body-parser
-Cookie-parser
-Express
-Mailgun-js
-Twilio
-pg
+- Body-parser
+- Cookie-parser
+- Express
+- Mailgun-js
+- Twilio
+- pg
