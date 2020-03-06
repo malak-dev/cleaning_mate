@@ -11,4 +11,4 @@ The app will be served at http://localhost:3005/.
  4.Go to http://localhost:3005/ in your browser.
 
 
-[!(https://youtu.be/mhYABjg0Kxg)]
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/mhYABjg0Kxg/0.jpg)](https://www.youtube.com/watch?v=mhYABjg0Kxg)
