@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Rater from "react-rater";
-import "react-rater/lib/react-rater.css";
 import "./ClientAppointments.scss";
 import Comment from "./Comment";
 import axios from "axios";
@@ -16,7 +14,6 @@ export default function ClientAppointments(props) {
       .get(`/api/clients/${id}/appointments`)
       .then(response => {
         setClientAppointments(response.data);
-        console.log(response.data, "je te test");
       })
       .catch(err => {
         console.log(err);
